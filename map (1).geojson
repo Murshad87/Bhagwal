@@ -1,1 +1,16 @@
-{"type":"FeatureCollection","features":[]}
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Bhagwal",
+        "description": "Village in Gujrat, Pakistan"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [73.9554, 32.8214]
+      }
+    }
+  ]
+}
