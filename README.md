@@ -48,8 +48,20 @@ The name has been corrected in [OpenStreetMap](https://www.openstreetmap.org/) a
 
 ## 🖼 Media Gallery
 
-This repository contains:  
-- 📸 A photo of the **Bhagwal Sign Board** (`Bhagwal sign board.png`)  
+- ## 📸 Photos from Bhagwal Village
+
+### 🏫 Government High School Bhagwal
+![Govt High School Bhagwal](Govt%20High%20School%20Bhagwal%2C%20Gujrat%20.png)
+
+### 🕌 Jamia Masjid Gulzar-e-Madina
+![Jamia Masjid](Jamia_Masjid_Gulzar-e_Madina_Bhagwal.jpg)
+
+### 🚏 Bhagwal Sign Board
+![Bhagwal Sign Board](Bhagwal%20sign%20board%20.png)
+
+### 🌾 Chappar Bhagwal Area
+![Chappar Bhagwal](Chappar%20Bhagwal%20.jpg)
+
 
 More visual content is welcome — feel free to contribute.
 
