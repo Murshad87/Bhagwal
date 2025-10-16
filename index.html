@@ -1,31 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><meta name="google-site-verification" content="miBfY5XwiAeLHOKvM6vK8dFBOXe6jqDx3hloj4ot8Rg" />
+<head>
   <meta charset="UTF-8">
-  <head>
-    <meta charset="UTF-8">
-    <title>Bhagwal, Kharian Tehsil, Gujrat District, Punjab, Pakistan</title>
-
-    <!-- JSON-LD structured data -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Place",
-      "name": "Bhagwal",
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Kharian Tehsil",
-        "addressRegion": "Gujrat District, Punjab",
-        "addressCountry": "Pakistan"
-      },
-      "url": "https://github.com/topics/bhagwal"
-    }
-    </script>
-</head>
-
+  <meta name="google-site-verification" content="miBfY5XwiAeLHOKvM6vK8dFBOXe6jqDx3hloj4ot8Rg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bhagwal - Digital Village</title>
+  <title>Bhagwal, Kharian Tehsil, Gujrat District, Punjab, Pakistan</title>
+
+  <!-- JSON-LD structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Place",
+    "name": "Bhagwal",
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 32.8214133107133,
+      "longitude": 73.94494208774944
+    },
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Kharian Tehsil",
+      "addressRegion": "Gujrat District, Punjab",
+      "addressCountry": "Pakistan"
+    },
+    "url": "https://github.com/topics/bhagwal",
+    "sameAs": [
+      "https://vymaps.com/PK/Bhagwal-Gujrat-216825875008664/",
+      "https://en.wikipedia.org/wiki/Bhagwal"
+    ]
+  }
+  </script>
+
+  <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
   <style>
     body {
       font-family: 'Roboto', sans-serif;
@@ -51,6 +59,7 @@
     }
     nav {
       margin-top: 1rem;
+      flex-wrap: wrap;
     }
     nav a {
       color: white;
@@ -115,12 +124,30 @@
       padding: 5px 10px;
       border-radius: 5px;
       font-size: 0.9rem;
+      transition: transform 0.2s;
+    }
+    .tag:hover {
+      transform: scale(1.05);
     }
     footer {
       text-align: center;
       padding: 1rem;
       background: #2c7a7b;
       color: white;
+    }
+
+    /* Mobile responsiveness */
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 1.8rem;
+      }
+      header p {
+        font-size: 1rem;
+      }
+      nav a {
+        display: block;
+        margin: 5px 0;
+      }
     }
   </style>
 </head>
@@ -149,8 +176,17 @@
 
   <section id="map">
     <h2>Location</h2>
-    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1830.5303811847696!2d73.95865944285462!3d32.825941723250146!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzLCsDQ5JzM2LjMiTiA3M8KwNTcnMjYuMyJF!5e0!3m2!1sen!2s!4v1707900000000" allowfullscreen="" loading="lazy"></iframe>
-    <p><a href="https://www.google.com/maps?q=32.8213957,73.9552418" target="_blank">View on Google Maps</a></p>
+    <iframe 
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d10355.571492436533!2d73.94494208774944!3d32.8214133107133!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x391fa6bf10782fbf%3A0x71850a23cd4e8def!2sBhagwal%2C%20Pakistan!5e1!3m2!1sen!2sae!4v1760621867468!5m2!1sen!2sae" 
+      allowfullscreen="" 
+      loading="lazy" 
+      referrerpolicy="no-referrer-when-downgrade">
+    </iframe>
+    <p>
+      <a href="https://www.google.com/maps?q=32.8214133107133,73.94494208774944" target="_blank">
+        View on Google Maps
+      </a>
+    </p>
   </section>
 
   <section id="landmarks">
@@ -200,11 +236,11 @@
   <section id="tags">
     <h2>Tags / Topics</h2>
     <div class="tags">
-      <span class="tag">Bhagwal</span>
-      <span class="tag">Kharian</span>
-      <span class="tag">Gujrat</span>
-      <span class="tag">Punjab</span>
-      <span class="tag">Pakistan</span>
+      <a class="tag" href="https://github.com/topics/bhagwal" target="_blank">Bhagwal</a>
+      <a class="tag" href="https://en.wikipedia.org/wiki/Kharian" target="_blank">Kharian</a>
+      <a class="tag" href="https://en.wikipedia.org/wiki/Gujrat_District" target="_blank">Gujrat</a>
+      <a class="tag" href="https://en.wikipedia.org/wiki/Punjab,_Pakistan" target="_blank">Punjab</a>
+      <a class="tag" href="https://en.wikipedia.org/wiki/Pakistan" target="_blank">Pakistan</a>
     </div>
   </section>
 
