@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bhagwal GeoJSON Preview</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
+    #map { height: 90vh; width: 100%; }
+    h3 { text-align: center; margin: 10px 0; }
+  </style>
+</head>
+<body>
+
+<h3>Bhagwal GeoJSON Map Preview</h3>
+<div id="map"></div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+  // Initialize the map with a center point (adjust if needed)
+  var map = L.map('map').setView([32.825941, 73.960083], 14);
+
+  // Add OpenStreetMap tiles
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19
+  }).addTo(map);
+
+  // List all GeoJSON files in this folder
+  const geoFiles = ['map (1).geojson', 'map (2).geojson']; // add more if needed
+
+  geoFiles.forEach(file => {
+    fetch(file)
+      .then(res => res.json())
+      .then(data => {
+        L.geoJSON(data, {
+          style: { color: 'blue', weight: 2 },
+          onEachFeature: function (feature, layer) {
+            if (feature.properties && feature.properties.name) {
+              layer.bindPopup(feature.properties.name);
+            }
+          }
+        }).addTo(map);
+      })
+      .catch(err => console.error('Error loading ' + file, err));
+  });
+</script>
+
+</body>
+</html>
