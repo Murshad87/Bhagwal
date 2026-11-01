@@ -316,6 +316,92 @@
       margin-bottom: 0;
     }
 
+    .contact-note {
+      color: var(--muted);
+      margin-top: -4px;
+    }
+
+    .contact-form {
+      margin-top: 18px;
+      display: grid;
+      gap: 16px;
+      max-width: 620px;
+    }
+
+    .form-row {
+      display: grid;
+      gap: 8px;
+    }
+
+    label {
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .required-mark {
+      color: #b42318;
+    }
+
+    .optional-text {
+      font-size: 0.85rem;
+      color: var(--muted);
+      font-weight: 400;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      border: 1px solid #dfe6e8;
+      border-radius: 10px;
+      padding: 12px 14px;
+      font: inherit;
+      color: var(--text);
+      background: #fff;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      color: #7c8f93;
+    }
+
+    input:focus,
+    textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(44, 122, 123, 0.12);
+    }
+
+    textarea {
+      min-height: 150px;
+      resize: vertical;
+    }
+
+    .submit-btn {
+      width: fit-content;
+      border: none;
+      border-radius: 10px;
+      background: var(--primary);
+      color: #fff;
+      font: inherit;
+      font-weight: 700;
+      padding: 12px 22px;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+
+    .submit-btn:hover {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+      text-decoration: none;
+    }
+
+    .github-profile-link {
+      margin-top: 10px;
+      display: inline-block;
+      font-weight: 700;
+    }
+
     .resource-list li {
       margin-bottom: 10px;
     }
@@ -356,6 +442,7 @@
       <a href="#landmarks">Landmarks</a>
       <a href="#nearby">Nearby</a>
       <a href="#faq">FAQ</a>
+      <a href="#contact">Contact</a>
       <a href="#references">References</a>
     </nav>
   </header>
@@ -549,6 +636,42 @@
           بھگوال to find this place.
         </p>
       </div>
+    </section>
+
+    <section id="contact">
+      <h2>Contact Us</h2>
+      <p>We would like to hear from you about how we can improve this site.</p>
+      <p class="contact-note">Please note that we may not be able to reply to everyone.</p>
+      <p class="contact-note">No public email is shown here. If you want to contact the owner, please use the GitHub profile.</p>
+
+      <a class="github-profile-link" href="https://github.com/Murshad87" target="_blank" rel="noopener noreferrer">
+        Message on GitHub profile
+      </a>
+
+      <form
+        class="contact-form"
+        action="https://github.com/Murshad87"
+        method="get"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <div class="form-row">
+          <label for="name">Name <span class="required-mark" aria-label="required">*</span></label>
+          <input id="name" name="name" type="text" placeholder="Enter full name" required />
+        </div>
+
+        <div class="form-row">
+          <label for="email">Email <span class="optional-text">(optional)</span></label>
+          <input id="email" name="email" type="email" placeholder="Enter email" />
+        </div>
+
+        <div class="form-row">
+          <label for="message">Message <span class="required-mark" aria-label="required">*</span></label>
+          <textarea id="message" name="message" placeholder="Short message" required></textarea>
+        </div>
+
+        <button class="submit-btn" type="submit">Send via GitHub</button>
+      </form>
     </section>
 
     <section id="references">
