@@ -5,13 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#2c7a7b" />
 
-  <!-- Google Verification -->
+  <!-- Replace with your real verification codes before publishing -->
   <meta name="google-site-verification" content="YOUR_GOOGLE_VERIFICATION_CODE" />
-
-  <!-- Bing Verification -->
   <meta name="msvalidate.01" content="YOUR_BING_VERIFICATION_CODE" />
 
-  <!-- Mastodon Verification -->
   <link rel="me" href="https://mastodon.social/@bhagwalkharian" />
 
   <title>Bhagwal Village, Kharian Tehsil | Gujrat, Punjab, Pakistan</title>
@@ -32,7 +29,10 @@
     content="Bhagwal is a village in Kharian Tehsil, Gujrat District, Punjab, Pakistan. Learn about Bhagwal village, local landmarks, nearby locations, and map references."
   />
   <meta property="og:url" content="https://murshad87.github.io/Bhagwal/" />
-  <meta property="og:image" content="https://murshad87.github.io/Bhagwal/images/bhagwal-village.jpg" />
+  <meta
+    property="og:image"
+    content="https://raw.githubusercontent.com/Murshad87/Bhagwal/main/Bhagwal%20sign%20board%20.png"
+  />
 
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Bhagwal Village, Kharian Tehsil | Gujrat, Punjab, Pakistan" />
@@ -40,7 +40,10 @@
     name="twitter:description"
     content="Bhagwal village in Kharian Tehsil, Gujrat District, Punjab, Pakistan."
   />
-  <meta name="twitter:image" content="https://murshad87.github.io/Bhagwal/images/bhagwal-village.jpg" />
+  <meta
+    name="twitter:image"
+    content="https://raw.githubusercontent.com/Murshad87/Bhagwal/main/Bhagwal%20sign%20board%20.png"
+  />
 
   <script type="application/ld+json">
   {
@@ -128,197 +131,215 @@
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
 
   <style>
-    :root{
-      --primary:#2c7a7b;
-      --primary-dark:#1e5c5f;
-      --bg:#f6f7f8;
-      --card:#ffffff;
-      --text:#1f2a2d;
-      --muted:#50656a;
-      --shadow:0 5px 18px rgba(16, 33, 35, 0.08);
-      --radius:14px;
+    :root {
+      --primary: #2c7a7b;
+      --primary-dark: #1e5c5f;
+      --bg: #f6f7f8;
+      --card: #ffffff;
+      --text: #1f2a2d;
+      --muted: #50656a;
+      --shadow: 0 5px 18px rgba(16, 33, 35, 0.08);
+      --radius: 14px;
     }
 
-    *{box-sizing:border-box}
-    html{scroll-behavior:smooth}
-    body{
-      margin:0;
-      font-family:'Roboto',sans-serif;
-      background:var(--bg);
-      color:var(--text);
-      line-height:1.7;
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: 'Roboto', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
     }
 
-    img{
-      max-width:100%;
-      display:block;
+    img {
+      max-width: 100%;
+      display: block;
     }
 
-    a{
-      color:var(--primary);
-      text-decoration:none;
-    }
-    a:hover{text-decoration:underline}
-
-    header{
-      background:linear-gradient(135deg, var(--primary), var(--primary-dark));
-      color:#fff;
-      padding:18px 16px 20px;
-      text-align:center;
+    a {
+      color: var(--primary);
+      text-decoration: none;
     }
 
-    header h1{
-      margin:0;
-      font-size:clamp(1.8rem, 7vw, 2.5rem);
-      line-height:1.2;
+    a:hover { text-decoration: underline; }
+
+    header {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: #fff;
+      padding: 18px 16px 20px;
+      text-align: center;
     }
 
-    header p{
-      margin:10px auto 0;
-      color:rgba(255,255,255,0.9);
-      font-size:0.96rem;
-      max-width:640px;
+    header h1 {
+      margin: 0;
+      font-size: clamp(1.8rem, 7vw, 2.5rem);
+      line-height: 1.2;
     }
 
-    nav{
-      display:flex;
-      flex-wrap:wrap;
-      justify-content:center;
-      gap:8px 12px;
-      margin-top:16px;
+    header p {
+      margin: 10px auto 0;
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 0.96rem;
+      max-width: 640px;
     }
 
-    nav a{
-      color:#fff;
-      font-weight:500;
-      font-size:0.9rem;
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px 12px;
+      margin-top: 16px;
     }
 
-    nav a:hover{text-decoration:underline}
-
-    main{
-      max-width:980px;
-      margin:0 auto;
-      padding:16px;
+    nav a {
+      color: #fff;
+      font-weight: 500;
+      font-size: 0.9rem;
     }
 
-    section{
-      background:var(--card);
-      border-radius:var(--radius);
-      box-shadow:var(--shadow);
-      padding:18px 16px;
-      margin-bottom:18px;
+    nav a:hover { text-decoration: underline; }
+
+    main {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 16px;
     }
 
-    h2{
-      margin:0 0 12px;
-      color:var(--primary);
-      font-size:clamp(1.45rem, 5vw, 2rem);
-      line-height:1.3;
+    section {
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 18px 16px;
+      margin-bottom: 18px;
     }
 
-    h3{
-      margin:0 0 8px;
-      color:var(--primary-dark);
-      font-size:1.1rem;
+    h2 {
+      margin: 0 0 12px;
+      color: var(--primary);
+      font-size: clamp(1.45rem, 5vw, 2rem);
+      line-height: 1.3;
     }
 
-    p{
-      margin:0 0 12px;
-      color:var(--text);
-      font-size:1rem;
+    h3 {
+      margin: 0 0 8px;
+      color: var(--primary-dark);
+      font-size: 1.1rem;
     }
 
-    ul{
-      margin:10px 0 0;
-      padding-left:0;
-      list-style:none;
+    p {
+      margin: 0 0 12px;
+      color: var(--text);
+      font-size: 1rem;
     }
 
-    li{
-      margin-bottom:8px;
-      padding-left:0;
-      color:var(--text);
+    ul {
+      margin: 10px 0 0;
+      padding-left: 0;
+      list-style: none;
     }
 
-    .hero{
-      display:grid;
-      grid-template-columns:1fr;
-      gap:16px;
-      align-items:start;
+    li {
+      margin-bottom: 8px;
+      color: var(--text);
     }
 
-    .hero img{
-      border-radius:12px;
-      width:100%;
-      height:260px;
-      object-fit:cover;
-      border:1px solid rgba(0,0,0,0.06);
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+      align-items: start;
     }
 
-    .map-frame{
-      width:100%;
-      height:320px;
-      border:0;
-      border-radius:12px;
-      display:block;
+    .media-card {
+      margin: 0;
+      background: #f9fafb;
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      border-radius: 12px;
+      overflow: hidden;
     }
 
-    .tags{
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-      margin-top:8px;
+    .media-card img {
+      width: 100%;
+      height: 260px;
+      object-fit: cover;
+      display: block;
     }
 
-    .tag{
-      background:var(--primary);
-      color:#fff;
-      border-radius:999px;
-      padding:8px 12px;
-      font-size:0.82rem;
-      display:inline-block;
+    .media-card figcaption {
+      padding: 8px 12px;
+      font-size: 0.88rem;
+      color: var(--muted);
+      background: #f3f5f5;
     }
 
-    .tag:hover{
-      text-decoration:none;
-      opacity:0.96;
+    .map-frame {
+      width: 100%;
+      height: 320px;
+      border: 0;
+      border-radius: 12px;
+      display: block;
     }
 
-    .faq-item{
-      border-bottom:1px solid #edf0f1;
-      padding-bottom:12px;
-      margin-bottom:12px;
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 8px;
     }
 
-    .faq-item:last-child{
-      border-bottom:none;
-      padding-bottom:0;
-      margin-bottom:0;
+    .tag {
+      background: var(--primary);
+      color: #fff;
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-size: 0.82rem;
+      display: inline-block;
     }
 
-    .resource-list li{margin-bottom:10px}
-
-    footer{
-      background:var(--primary);
-      color:#fff;
-      text-align:center;
-      padding:18px 16px;
-      font-size:0.9rem;
+    .tag:hover {
+      text-decoration: none;
+      opacity: 0.96;
     }
 
-    @media (min-width: 700px){
-      .hero{
-        grid-template-columns:1.2fr 0.8fr;
+    .faq-item {
+      border-bottom: 1px solid #edf0f1;
+      padding-bottom: 12px;
+      margin-bottom: 12px;
+    }
+
+    .faq-item:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+      margin-bottom: 0;
+    }
+
+    .resource-list li {
+      margin-bottom: 10px;
+    }
+
+    footer {
+      background: var(--primary);
+      color: #fff;
+      text-align: center;
+      padding: 18px 16px;
+      font-size: 0.9rem;
+    }
+
+    @media (min-width: 700px) {
+      .hero-grid {
+        grid-template-columns: 1.2fr 0.8fr;
       }
 
-      .hero img{
-        height:100%;
-        min-height:280px;
+      .media-card img {
+        height: 100%;
+        min-height: 280px;
       }
 
-      .map-frame{
-        height:420px;
+      .map-frame {
+        height: 420px;
       }
     }
   </style>
@@ -355,7 +376,7 @@
 
     <section id="overview">
       <h2>Bhagwal Village Overview</h2>
-      <div class="hero">
+      <div class="hero-grid">
         <div>
           <p>
             Bhagwal village in Kharian Tehsil, Gujrat District, Punjab, Pakistan is a locality with
@@ -368,25 +389,78 @@
           </p>
         </div>
 
-        <img
-          src="images/bhagwal-village.jpg"
-          alt="Bhagwal village in Kharian Tehsil, Gujrat District, Punjab, Pakistan"
-          onerror="this.src='https://placehold.co/800x500/2c7a7b/ffffff?text=Bhagwal+Village';"
-        />
+        <figure class="media-card">
+          <a
+            href="https://github.com/Murshad87/Bhagwal/blob/main/Bhagwal%20sign%20board%20.png"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Open Bhagwal village sign board"
+          >
+            <img
+              src="https://raw.githubusercontent.com/Murshad87/Bhagwal/main/Bhagwal%20sign%20board%20.png"
+              alt="Bhagwal village sign board in Kharian Tehsil, Gujrat District, Punjab, Pakistan"
+              width="800"
+              height="650"
+              loading="lazy"
+            />
+          </a>
+          <figcaption>Bhagwal village sign board</figcaption>
+        </figure>
       </div>
     </section>
 
-    <section>
+    <section lang="ur" dir="rtl">
       <h2>بھگوال</h2>
       <p>
-        بھگوال، کھاریاں تحصیل، گجرات ضلع، پنجاب، پاکستان کا ایک گاؤں اوریونین کونسل ہے جو اپنی ثقافت، مساجد، اسکولوں اور
-        مقامی شناخت کے لیے جانا جاتا ہے۔ یہ علاقے میں دیہی زندگی، کمیونٹی روابط اور مقامی اداروں کے
-        لیے اہم مقام رکھتا ہے۔
+        بھگوال، کھاریاں تحصیل، گجرات ضلع، پنجاب، پاکستان کا ایک گاؤں ہے جو اپنی ثقافت، مساجد، اسکولوں
+        اور مقامی شناخت کے لیے جانا جاتا ہے۔ یہ علاقے میں دیہی زندگی، کمیونٹی روابط اور مقامی اداروں کے
+        لیے ایک اہم مقام رکھتا ہے۔
       </p>
       <p>
         Bhagwal (بھگوال) is a village in Kharian Tehsil, Gujrat District, Punjab, Pakistan.
         Bhagwal, Kharian and Bhagwal, Gujrat are common local references used to identify this place.
       </p>
+    </section>
+
+    <section id="gallery">
+      <h2>Village & Masjid Images</h2>
+      <div class="hero-grid">
+        <figure class="media-card">
+          <a
+            href="https://github.com/Murshad87/Bhagwal/blob/main/Jamia_Masjid_Gulzar-e_Madina_Bhagwal.jpg"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Open Jamia Masjid Gulzar-e-Madina Bhagwal"
+          >
+            <img
+              src="https://raw.githubusercontent.com/Murshad87/Bhagwal/main/Jamia_Masjid_Gulzar-e_Madina_Bhagwal.jpg"
+              alt="Jamia Masjid Gulzar-e-Madina Bhagwal in Bhagwal village"
+              width="800"
+              height="650"
+              loading="lazy"
+            />
+          </a>
+          <figcaption>Jamia Masjid Gulzar-e-Madina Bhagwal</figcaption>
+        </figure>
+
+        <figure class="media-card">
+          <a
+            href="https://github.com/Murshad87/Bhagwal/blob/main/Bhagwal%20sign%20board%20.png"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Open Bhagwal sign board image"
+          >
+            <img
+              src="https://raw.githubusercontent.com/Murshad87/Bhagwal/main/Bhagwal%20sign%20board%20.png"
+              alt="Bhagwal sign board in Gujrat District, Punjab, Pakistan"
+              width="800"
+              height="650"
+              loading="lazy"
+            />
+          </a>
+          <figcaption>Bhagwal sign board</figcaption>
+        </figure>
+      </div>
     </section>
 
     <section id="map">
@@ -414,11 +488,10 @@
     <section id="landmarks">
       <h2>Landmarks & Local Places</h2>
       <ul>
-        
         <li>🕌 Jamia Masjid Gulzare Madina Bhagwal
-        <a href="https://maps.app.goo.gl/CA5WWvijKQndZLfE9" target="_blank" rel="noopener noreferrer">
-       Open in Google Maps
-        </a>
+          <a href="https://maps.app.goo.gl/CA5WWvijKQndZLfE9" target="_blank" rel="noopener noreferrer">
+            Open in Google Maps
+          </a>
         </li>
         <li>🕌 Masjid Abbas (RA) Bhagwal</li>
         <li>🕌 Jamia Masjid Hazrat Bilal</li>
@@ -441,7 +514,7 @@
         connected network of village life in the district.
       </p>
       <p>
-        This makes Bhagwal important not only as a place in itself, but also as a part of the larger
+        This makes Bhagwal important not only as a place in itself, but also as part of the larger
         geographic and social landscape of Gujrat District and Punjab.
       </p>
     </section>
