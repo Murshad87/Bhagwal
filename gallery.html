@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#2c7a7b" />
+  <meta name="description" content="Photos of Bhagwal village, its mosques, landmarks, fields, and heritage." />
+  <title>Bhagwal Photo Gallery</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --primary: #2c7a7b;
+      --primary-dark: #1e5c5f;
+      --bg: #f6f7f8;
+      --text: #1f2a2d;
+      --muted: #50656a;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      color: var(--text);
+      background: var(--bg);
+    }
+    header {
+      padding: 28px 16px;
+      color: white;
+      text-align: center;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    }
+    header h1 { margin: 0; }
+    header p { margin: 8px 0 0; }
+    main { max-width: 1200px; margin: auto; padding: 24px 16px; }
+    .back-link { display: inline-block; margin-bottom: 18px; color: var(--primary-dark); }
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+      gap: 18px;
+    }
+    figure {
+      margin: 0;
+      overflow: hidden;
+      border-radius: 14px;
+      background: white;
+      box-shadow: 0 5px 18px rgba(16, 33, 35, .1);
+    }
+    figure a { display: block; }
+    figure img {
+      display: block;
+      width: 100%;
+      height: 240px;
+      object-fit: cover;
+      transition: transform .2s ease;
+    }
+    figure a:hover img { transform: scale(1.03); }
+    figcaption { padding: 11px 14px; color: var(--muted); }
+    footer { padding: 18px; text-align: center; color: white; background: var(--primary); }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Bhagwal Photo Gallery</h1>
+    <p>Village scenes, mosques, landmarks, and local heritage</p>
+  </header>
+  <main>
+    <a class="back-link" href="./">← Back to Bhagwal Village</a>
+    <div class="gallery" aria-label="Bhagwal village photo gallery">
+      <figure>
+        <a href="https://raw.githubusercontent.com/Murshad87/Bhagwal/main/Bhagwal%20sign%20board%20.png" target="_blank" rel="noopener noreferrer">
+          <img src="https://raw.githubusercontent.com/Murshad87/Bhagwal/main/Bhagwal%20sign%20board%20.png" alt="Bhagwal village signboard" loading="lazy" />
+        </a>
+        <figcaption>Bhagwal village signboard</figcaption>
+      </figure>
+      <figure>
+        <a href="https://raw.githubusercontent.com/Murshad87/Bhagwal/main/Jamia_Masjid_Gulzar-e_Madina_Bhagwal.jpg" target="_blank" rel="noopener noreferrer">
+          <img src="https://raw.githubusercontent.com/Murshad87/Bhagwal/main/Jamia_Masjid_Gulzar-e_Madina_Bhagwal.jpg" alt="Jamia Masjid Gulzar-e-Madina in Bhagwal" loading="lazy" />
+        </a>
+        <figcaption>Jamia Masjid Gulzar-e-Madina</figcaption>
+      </figure>
+      <figure>
+        <a href="https://raw.githubusercontent.com/Murshad87/Bhagwal/main/Bhagwal_wheat_field.jpg" target="_blank" rel="noopener noreferrer">
+          <img src="https://raw.githubusercontent.com/Murshad87/Bhagwal/main/Bhagwal_wheat_field.jpg" alt="Wheat field in Bhagwal" loading="lazy" />
+        </a>
+        <figcaption>Bhagwal wheat field</figcaption>
+      </figure>
+      <figure>
+        <a href="https://raw.githubusercontent.com/Murshad87/Bhagwal/main/Chappar%20Bhagwal%20.jpg" target="_blank" rel="noopener noreferrer">
+          <img src="https://raw.githubusercontent.com/Murshad87/Bhagwal/main/Chappar%20Bhagwal%20.jpg" alt="Chappar in Bhagwal" loading="lazy" />
+        </a>
+        <figcaption>Chappar, Bhagwal</figcaption>
+      </figure>
+      <figure>
+        <a href="https://raw.githubusercontent.com/Murshad87/Bhagwal/main/Govt%20High%20School%20Bhagwal,%20Gujrat%20.png" target="_blank" rel="noopener noreferrer">
+          <img src="https://raw.githubusercontent.com/Murshad87/Bhagwal/main/Govt%20High%20School%20Bhagwal,%20Gujrat%20.png" alt="Government High School Bhagwal, Gujrat" loading="lazy" />
+        </a>
+        <figcaption>Government High School Bhagwal</figcaption>
+      </figure>
+      <figure>
+        <a href="https://raw.githubusercontent.com/Murshad87/Bhagwal/main/Jamia%20Masjid%20Bilal%20Lane,%20Bhagwal.png" target="_blank" rel="noopener noreferrer">
+          <img src="https://raw.githubusercontent.com/Murshad87/Bhagwal/main/Jamia%20Masjid%20Bilal%20Lane,%20Bhagwal.png" alt="Jamia Masjid Bilal Lane in Bhagwal" loading="lazy" />
+        </a>
+        <figcaption>Jamia Masjid Bilal Lane</figcaption>
+      </figure>
+      <figure>
+        <a href="https://raw.githubusercontent.com/Murshad87/Bhagwal/main/Pre-Partition%20Heritage%20Buildings%20of%20Bhagwal.png" target="_blank" rel="noopener noreferrer">
+          <img src="https://raw.githubusercontent.com/Murshad87/Bhagwal/main/Pre-Partition%20Heritage%20Buildings%20of%20Bhagwal.png" alt="Pre-partition heritage buildings of Bhagwal" loading="lazy" />
+        </a>
+        <figcaption>Pre-partition heritage buildings</figcaption>
+      </figure>
+      <figure>
+        <a href="https://raw.githubusercontent.com/Murshad87/Bhagwal/main/Purani%20Kothi%20Heritage%20Postcard.png" target="_blank" rel="noopener noreferrer">
+          <img src="https://raw.githubusercontent.com/Murshad87/Bhagwal/main/Purani%20Kothi%20Heritage%20Postcard.png" alt="Purani Kothi heritage postcard" loading="lazy" />
+        </a>
+        <figcaption>Purani Kothi heritage postcard</figcaption>
+      </figure>
+      <figure>
+        <a href="https://raw.githubusercontent.com/Murshad87/Bhagwal/main/Bhagwal_%20A%20Heritage%20Book%20Reference.png" target="_blank" rel="noopener noreferrer">
+          <img src="https://raw.githubusercontent.com/Murshad87/Bhagwal/main/Bhagwal_%20A%20Heritage%20Book%20Reference.png" alt="Bhagwal heritage book reference" loading="lazy" />
+        </a>
+        <figcaption>Bhagwal: A Heritage Book reference</figcaption>
+      </figure>
+    </div>
+  </main>
+  <footer>Bhagwal Village · Digital Village Initiative</footer>
+</body>
+</html>
