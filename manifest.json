@@ -1,15 +1,17 @@
 {
+  "id": "./",
   "short_name": "Bhagwal",
   "name": "Bhagwal Village Portal",
   "description": "Explore Bhagwal village heritage, landmarks, and community updates.",
   "icons": [
     {
-      "src": "https://wikimedia.org",
+      "src": "./Bhagwal%20sign%20board%20.png",
       "type": "image/png",
-      "sizes": "554x451"
+      "purpose": "any"
     }
   ],
-  "start_url": "/",
+  "start_url": "./",
+  "scope": "./",
   "background_color": "#f6f7f8",
   "theme_color": "#2c7a7b",
   "display": "standalone",
