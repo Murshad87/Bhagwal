@@ -12,6 +12,13 @@
   <link rel="me" href="https://mastodon.social/@bhagwalkharian" />
   
  <link rel="manifest" href="./manifest.json" />
+  <script>
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+      navigator.serviceWorker.register("./service-worker.js");
+    });
+  }
+</script>
 
   <title>Bhagwal Village, Kharian Tehsil | Gujrat, Punjab, Pakistan</title>
   <meta
