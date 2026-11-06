@@ -762,42 +762,52 @@
           بھگوال to find this place.
         </p>
       </div>
-    </section>
+   <section id="contact">
+  <h2>Contact Us</h2>
+  <p>We would like to hear from you about how we can improve this site.</p>
+  <p class="contact-note">Please note that we may not be able to reply to everyone.</p>
 
-    <section id="contact">
-      <h2>Contact Us</h2>
-      <p>We would like to hear from you about how we can improve this site.</p>
-      <p class="contact-note">Please note that we may not be able to reply to everyone.</p>
-      
-      <a class="github-profile-link" href="bhagwalkharian@gmail.com" target="_blank" rel="noopener noreferrer">
-        Message on email
-      </a>
+  <a class="github-profile-link" href="mailto:bhagwalkharian@gmail.com">
+    Email us
+  </a>
 
-      <form
-        class="contact-form"
-        action="bhagwalkharian@gmail.com"
-        method="get"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <div class="form-row">
-          <label for="name">Name <span class="required-mark" aria-label="required">*</span></label>
-          <input id="name" name="name" type="text" placeholder="Enter full name" required />
-        </div>
+  <form class="contact-form" id="contactForm">
+    <div class="form-row">
+      <label for="name">Name <span class="required-mark" aria-label="required">*</span></label>
+      <input id="name" name="name" type="text" placeholder="Enter full name" required />
+    </div>
 
-        <div class="form-row">
-          <label for="email">Email <span class="optional-text">(optional)</span></label>
-          <input id="email" name="email" type="email" placeholder="Enter email" />
-        </div>
+    <div class="form-row">
+      <label for="email">Email <span class="optional-text">(optional)</span></label>
+      <input id="email" name="email" type="email" placeholder="Enter email" />
+    </div>
 
-        <div class="form-row">
-          <label for="message">Message <span class="required-mark" aria-label="required">*</span></label>
-          <textarea id="message" name="message" placeholder="Short message" required></textarea>
-        </div>
+    <div class="form-row">
+      <label for="message">Message <span class="required-mark" aria-label="required">*</span></label>
+      <textarea id="message" name="message" placeholder="Short message" required></textarea>
+    </div>
 
-        <button class="submit-btn" type="submit">Send via mail</button>
-      </form>
-    </section>
+    <button class="submit-btn" type="submit">Send via mail</button>
+  </form>
+</section>
+
+<script>
+  document.getElementById("contactForm").addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const message = document.getElementById("message").value.trim();
+
+    const subject = encodeURIComponent("Bhagwal website message");
+    const body = encodeURIComponent(
+      `Name: ${name}\nEmail: ${email || "Not provided"}\n\nMessage:\n${message}`
+    );
+
+    window.location.href =
+      `mailto:bhagwalkharian@gmail.com?subject=${subject}&body=${body}`;
+  });
+</script>
 
     <section id="references">
       <h2>References & Map Sources</h2>
