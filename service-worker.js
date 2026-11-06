@@ -6,7 +6,30 @@ const APP_SHELL = [
   new URL("manifest.json", BASE_URL).href,
   new URL("Bhagwal%20sign%20board%20.png", BASE_URL).href
 ];
-
+const APP_SHELL = [
+  new URL("./", BASE_URL).href,
+  new URL("index.html", BASE_URL).href,
+  new URL("gallery.html", BASE_URL).href,
+  new URL("manifest.json", BASE_URL).href,
+  new URL("Bhagwal%20sign%20board%20.png", BASE_URL).href
+];
+if (request.mode === "navigate") {
+  event.respondWith(
+    fetch(request).catch(async () => {
+      const cachedPage = await caches.match(request, { ignoreSearch: true });
+      const homePage = await caches.match(new URL("index.html", BASE_URL).href);
+      return cachedPage || homePage || Response.error();
+    })
+  );
+  return;
+}
+const APP_SHELL = [
+  new URL("./", BASE_URL).href,
+  new URL("index.html", BASE_URL).href,
+  new URL("gallery.html", BASE_URL).href,
+  new URL("manifest.json", BASE_URL).href,
+  new URL("Bhagwal%20sign%20board%20.png", BASE_URL).href
+];
 self.addEventListener("install", (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME)
