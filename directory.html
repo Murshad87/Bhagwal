@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ur">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بھگوال بزنس ڈائریکٹری | Bhagwal Business Directory</title>
+    <!-- Tailwind CSS for modern and responsive styling -->
+    <script src="https://jsdelivr.net"></script>
+    <style>
+        @import url('https://googleapis.com');
+        .urdu-text { font-family: 'Noto Nastaliq Urdu', serif; line-height: 2.2; }
+        .eng-text { font-family: 'Poppins', sans-serif; }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 eng-text antialiased">
+
+    <!-- Header Section -->
+    <header class="bg-emerald-600 text-white text-center py-12 px-4 shadow-lg">
+        <h1 class="text-3xl md:text-5xl font-bold mb-4 urdu-text">بھگوال بزنس ڈائریکٹری</h1>
+        <p class="text-lg md:text-xl text-emerald-100 max-w-2xl mx-auto">Find trusted local businesses, shops, and essential services in Bhagwal, Kharian.</p>
+    </header>
+
+    <!-- Search & Filter Controls -->
+    <main class="max-w-6xl mx-auto px-4 py-8">
+        <div class="bg-white p-6 rounded-2xl shadow-sm mb-8 flex flex-col md:flex-row gap-4 justify-between items-center">
+            
+            <!-- Dynamic Live Search -->
+            <div class="w-full md:w-1/2 relative">
+                <input type="text" id="searchInput" placeholder="Search by name, service, or keywords... (e.g., Plumber, Clinic)" 
+                       class="w-full px-5 py-3 pl-12 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all">
+                <span class="absolute left-4 top-3.5 text-gray-400">🔍</span>
+            </div>
+
+            <!-- Category Filter Filter Tags -->
+            <div class="w-full md:w-auto flex flex-wrap gap-2 justify-start md:justify-end" id="categoryFilters">
+                <button onclick="filterCategory('all')" class="cat-btn px-4 py-2 rounded-xl bg-emerald-600 text-white text-sm font-medium transition-all shadow-sm">All</button>
+                <button onclick="filterCategory('Services')" class="cat-btn px-4 py-2 rounded-xl bg-gray-100 hover:bg-gray-200 text-gray-600 text-sm font-medium transition-all">Services</button>
+                <button onclick="filterCategory('Health')" class="cat-btn px-4 py-2 rounded-xl bg-gray-100 hover:bg-gray-200 text-gray-600 text-sm font-medium transition-all">Health & Clinics</button>
+                <button onclick="filterCategory('Shops')" class="cat-btn px-4 py-2 rounded-xl bg-gray-100 hover:bg-gray-200 text-gray-600 text-sm font-medium transition-all">Shops & Retail</button>
+                <button onclick="filterCategory('Education')" class="cat-btn px-4 py-2 rounded-xl bg-gray-100 hover:bg-gray-200 text-gray-600 text-sm font-medium transition-all">Education</button>
+            </div>
+        </div>
+
+        <!-- Directory Grid View -->
+        <div id="directoryGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Cards will be dynamically loaded via JavaScript -->
+        </div>
+
+        <!-- Zero State Error Message -->
+        <div id="noResults" class="hidden text-center py-12">
+            <p class="text-xl text-gray-500 urdu-text">کوئی ریکارڈ نہیں ملا۔</p>
+            <p class="text-gray-400 mt-2">No businesses matched your search query.</p>
+        </div>
+    </main>
+
+    <!-- Footer Dynamic Call to Action -->
+    <footer class="bg-gray-900 text-gray-400 text-center py-12 mt-16 px-4">
+        <p class="text-white text-lg font-semibold mb-2 urdu-text">کیا آپ کا بھگوال میں کوئی کاروبار ہے؟</p>
+        <p class="mb-6">Get your shop or service listed here for free. Reach thousands of locals and overseas community members.</p>
+        <a href="mailto:your-email@example.com" class="inline-block bg-emerald-600 hover:bg-emerald-500 text-white font-medium px-6 py-3 rounded-xl transition-all shadow-md">List Your Business Now</a>
+    </footer>
+
+    <!-- Core Business Data Logic Stack -->
+    <script>
+        // Sample directory dataset structured for instant loading
+        const businesses = [
+            {
+                nameUrdu: "",
+                nameEng: "Ali Electric Services",
+                category: "Services",
+                tags: ["electrician", "plumber", "bijli", "الیکٹریشن"],
+                phone: "",
+                location: ", Bhagwal",
+                status: "Active"
+            },
+            {
+                nameUrdu: "بھگوال پبلک اکیڈمی",
+                nameEng: "Bhagwal Public Academy",
+                category: "Education",
+                tags: ["school", "academy", "tuition", "اسکول"],
+                phone: "",
+                location: "Near Govt High School, Bhagwal",
+                status: "Active"
+            },
+            {
+                nameUrdu: "",
+                nameEng: "Madina Medical Store",
+                category: "Health",
+                tags: ["pharmacy", "doctor", "medicine", "کلینک", "دوا"],
+                phone: "",
+                location: ", Bhagwal",
+                status: "Active"
+            },
+            {
+                nameUrdu: "",
+                nameEng: "",
+                category: "Shops",
+                tags: ["grocery", "shop", "karyana", "دکان"],
+                phone: "+",
+                location: " Bhagwal, Pakistan",
+                status: "Active"
+            }
+        ];
+
+        let activeCategory = 'all';
+
+        // Render functions to draw cards into layout view
+        function renderDirectory() {
+            const grid = document.getElementById('directoryGrid');
+            const noResults = document.getElementById('noResults');
+            const searchInput = document.getElementById('searchInput').value.toLowerCase();
+            
+            grid.innerHTML = '';
+            
+            const filtered = businesses.filter(biz => {
+                const matchesCategory = activeCategory === 'all' || biz.category === activeCategory;
+                const matchesSearch = biz.nameEng.toLowerCase().includes(searchInput) || 
+                                      biz.nameUrdu.includes(searchInput) || 
+                                      biz.location.toLowerCase().includes(searchInput) ||
+                                      biz.tags.some(tag => tag.toLowerCase().includes(searchInput));
+                return matchesCategory && matchesSearch;
+            });
+
+            if (filtered.length === 0) {
+                noResults.classList.remove('hidden');
+                return;
+            }
+            
+            noResults.classList.add('hidden');
+
+            filtered.forEach(biz => {
+                const card = `
+                    <div class="bg-white rounded-2xl p-6 border border-gray-100 hover:border-emerald-500 shadow-xs hover:shadow-md transition-all duration-300 flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-start mb-4">
+                                <span class="px-3 py-1 bg-emerald-50 text-emerald-700 text-xs font-semibold rounded-full">${biz.category}</span>
+                                <span class="flex items-center text-xs text-green-600 font-medium">● Online</span>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-900 mb-1 urdu-text text-right">${biz.nameUrdu}</h3>
+                            <h4 class="text-md font-semibold text-gray-700 mb-3">${biz.nameEng}</h4>
+                            <p class="text-sm text-gray-500 flex items-center gap-2 mb-2">📍 ${biz.location}</p>
+                        </div>
+                        <div class="mt-6 pt-4 border-t border-gray-50">
+                            <a href="tel:${biz.phone}" class="w-full flex items-center justify-center gap-2 bg-gray-900 hover:bg-emerald-600 text-white font-medium py-3 rounded-xl transition-all shadow-xs text-sm">
+                                📞 Call Client: ${biz.phone}
+                            </a>
+                        </div>
+                    </div>
+                `;
+                grid.innerHTML += card;
+            });
+        }
+
+        // Handle structural layout state toggle for button visuals
+        function filterCategory(cat) {
+            activeCategory = cat;
+            const buttons = document.querySelectorAll('.cat-btn');
+            buttons.forEach(btn => {
+                btn.classList.remove('bg-emerald-600', 'text-white', 'shadow-sm');
+                btn.classList.add('bg-gray-100', 'text-gray-600');
+            });
+
+            // Target the active event node
+            const activeBtn = event.currentTarget;
+            activeBtn.classList.remove('bg-gray-100', 'text-gray-600');
+            activeBtn.classList.add('bg-emerald-600', 'text-white', 'shadow-sm');
+
+            renderDirectory();
+        }
+
+        // Live input key handler configuration
+        document.getElementById('searchInput').addEventListener('input', renderDirectory);
+
+        // Bootstrap data render on mount
+        renderDirectory();
+    </script>
+</body>
+</html>
