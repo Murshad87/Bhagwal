@@ -159,12 +159,17 @@
     html { scroll-behavior: smooth; }
 
     body {
-      margin: 0;
-      font-family: 'Roboto', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.7;
-    }
+  background-image: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.55)), 
+                    url('https://githubusercontent.com');
+  background-size: cover;
+  background-position: center center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+  color: #ffffff; 
+  line-height: 1.7;
+}
 
     img {
       max-width: 100%;
@@ -221,13 +226,13 @@
     }
 
     section {
-      background: var(--card);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: 18px 16px;
-      margin-bottom: 18px;
-    }
-
+  background: rgba(255, 255, 255, 0.95); 
+  color: #1f2a2d; 
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 18px 16px;
+  margin-bottom: 18px;
+}
     h2 {
       margin: 0 0 12px;
       color: var(--primary);
