@@ -839,6 +839,17 @@
       </a>
 
     </div>
+        <div class="mt-8">
+      <h3 class="mb-4 text-2xl font-bold text-emerald-700">
+        Latest Mastodon Updates
+      </h3>
+
+      <div id="mastodon-feed"
+           class="space-y-4"
+           aria-live="polite">
+        <p class="text-gray-600">Loading latest updates...</p>
+      </div>
+    </div>
   </div>
 </section>
     <section id="map">
@@ -984,7 +995,59 @@
       `mailto:bhagwalkharian@gmail.com?subject=${subject}&body=${body}`;
   });
 </script>
+  });
+</script>
 
+<script>
+async function loadMastodonFeed() {
+  const container = document.getElementById("mastodon-feed");
+
+  try {
+    const response = await fetch("/api/social-feed");
+
+    if (!response.ok) {
+      throw new Error("Feed unavailable");
+    }
+
+    const data = await response.json();
+    container.replaceChildren();
+
+    if (!data.items || data.items.length === 0) {
+      container.textContent = "No recent public posts available.";
+      return;
+    }
+
+    data.items.forEach(post => {
+      const card = document.createElement("article");
+      card.className = "rounded-xl border border-emerald-200 bg-white p-5 shadow-sm";
+
+      const content = document.createElement("p");
+      content.className = "text-gray-700";
+      content.textContent = post.content.replace(/<[^>]*>/g, " ").trim();
+
+      const link = document.createElement("a");
+      link.href = post.url;
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
+      link.className = "mt-3 inline-block font-semibold text-emerald-700";
+      link.textContent = "View Mastodon Post →";
+
+      const date = document.createElement("p");
+      date.className = "mt-2 text-sm text-gray-500";
+      date.textContent = new Date(post.created_at).toLocaleString();
+
+      card.append(content, date, link);
+      container.appendChild(card);
+    });
+  } catch (error) {
+    container.textContent = "Latest updates are temporarily unavailable.";
+  }
+}
+
+loadMastodonFeed();
+</script>
+
+    <section id="references">
     <section id="references">
       <h2>References & Map Sources</h2>
       <ul class="resource-list">
