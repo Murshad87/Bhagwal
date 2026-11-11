@@ -1,0 +1,186 @@
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: #f5f7f3;
+  color: #24352d;
+  font-family: Arial, "Noto Nastaliq Urdu", sans-serif;
+}
+
+.q-header {
+  background: #123d32;
+  color: white;
+  text-align: center;
+  padding: 25px 16px 30px;
+}
+
+.q-header h1 {
+  margin: 18px 0 4px;
+  font-size: 34px;
+  direction: rtl;
+}
+
+.q-header p { margin: 5px; }
+.subtitle { color: #d5e9dc; font-size: 14px; }
+
+.back-link {
+  color: white;
+  text-decoration: none;
+  display: inline-block;
+  border: 1px solid #8ba99a;
+  padding: 8px 13px;
+  border-radius: 8px;
+}
+
+.q-container {
+  width: min(900px, 94%);
+  margin: 22px auto;
+}
+
+.attribution, .navigation, .player, .ayah-card {
+  background: white;
+  border: 1px solid #e0e8e1;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 15px;
+}
+
+.attribution {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: center;
+  color: #285b43;
+}
+
+.attribution span { direction: rtl; }
+.reciter { color: #64776b; font-size: 14px; }
+
+.navigation {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.navigation label {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+select {
+  width: 100%;
+  padding: 11px;
+  border: 1px solid #cbd8ce;
+  border-radius: 8px;
+  background: white;
+  color: #24352d;
+  font-size: 15px;
+}
+
+.player {
+  background: #edf4ee;
+}
+
+.player p {
+  color: #607166;
+  font-size: 13px;
+}
+
+#quranAudio { width: 100%; margin: 10px 0; }
+
+.player-buttons {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+button {
+  border: 0;
+  border-radius: 8px;
+  background: #185b43;
+  color: white;
+  padding: 10px 14px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+button:disabled { opacity: .5; cursor: not-allowed; }
+
+.surah-heading {
+  text-align: center;
+  padding: 12px;
+}
+
+.surah-heading h2 {
+  font-size: 27px;
+  direction: rtl;
+  color: #185b43;
+}
+
+.surah-heading p { color: #68796e; }
+
+.ayah-card {
+  padding: 20px;
+  scroll-margin-top: 15px;
+}
+
+.ayah-card.active {
+  border: 2px solid #39845d;
+  background: #f0f8f1;
+}
+
+.ayah-number {
+  display: inline-block;
+  color: #64776b;
+  font-size: 13px;
+  margin-bottom: 12px;
+}
+
+.arabic {
+  direction: rtl;
+  text-align: right;
+  font-family: "Noto Naskh Arabic", "Traditional Arabic", serif;
+  font-size: 27px;
+  line-height: 2.15;
+  color: #172f25;
+  margin: 8px 0 18px;
+}
+
+.translation {
+  direction: rtl;
+  text-align: right;
+  font-family: "Noto Nastaliq Urdu", "Noto Naskh Arabic", serif;
+  font-size: 19px;
+  line-height: 2.1;
+  color: #42564a;
+  border-top: 1px solid #e5ebe5;
+  padding-top: 13px;
+}
+
+.ayah-play {
+  margin-top: 12px;
+  padding: 7px 12px;
+  font-size: 13px;
+}
+
+.loading, .error { text-align: center; padding: 20px; }
+.error { color: #b3261e; }
+
+.q-footer {
+  text-align: center;
+  color: #718077;
+  padding: 25px 10px;
+  font-size: 13px;
+}
+
+.q-footer a { color: #185b43; }
+
+@media (max-width: 600px) {
+  .navigation { grid-template-columns: 1fr; }
+  .arabic { font-size: 25px; }
+  .translation { font-size: 18px; }
+  .player-buttons button { flex: 1; }
+}

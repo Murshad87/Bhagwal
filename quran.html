@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#123d32">
+  <title>Al-Quran | Bhagwal</title>
+  <link rel="stylesheet" href="quran.css">
+  <script src="quran.js" defer></script>
+</head>
+<body>
+  <header class="q-header">
+    <a class="back-link" href="index.html">← Bhagwal Home</a>
+    <h1>القرآن الكريم</h1>
+    <p>Al-Quran Al-Kareem</p>
+    <p class="subtitle">Arabic Quran · Kanzul Iman Urdu Translation</p>
+  </header>
+
+  <main class="q-container">
+    <section class="attribution">
+      <strong>اردو ترجمہ: کنزالایمان</strong>
+      <span>امام احمد رضا خان بریلوی رحمۃ اللہ علیہ</span>
+      <span class="reciter">تلاوت: شیخ عبدالرحمٰن السدیس</span>
+    </section>
+
+    <section class="navigation">
+      <label>
+        Select Surah / سورت
+        <select id="surahSelect">
+          <option>Loading Quran...</option>
+        </select>
+      </label>
+      <label>
+        Select Para / پارہ
+        <select id="paraSelect">
+          <option value="">Choose Para</option>
+        </select>
+      </label>
+    </section>
+
+    <section class="player">
+      <div>
+        <strong id="playerSurah">تلاوت شروع کریں</strong>
+        <p id="playerStatus">Sheikh Abdurrahmaan As-Sudais</p>
+      </div>
+      <audio id="quranAudio" controls preload="none"></audio>
+      <div class="player-buttons">
+        <button id="previousAyah" type="button">آیت پچھلی</button>
+        <button id="playSurah" type="button">▶ شروع کریں</button>
+        <button id="nextAyah" type="button">اگلی آیت</button>
+      </div>
+    </section>
+
+    <div class="surah-heading">
+      <h2 id="surahTitle">قرآن پاک</h2>
+      <p id="surahInfo"></p>
+    </div>
+
+    <section id="ayahList" class="ayah-list" aria-live="polite">
+      <p class="loading">قرآن پاک لوڈ ہو رہا ہے...</p>
+    </section>
+
+    <p id="quranError" class="error" role="alert"></p>
+
+    <footer class="q-footer">
+      <p>Arabic text: Uthmani script</p>
+      <p>Urdu translation: Kanzul Iman — Imam Ahmad Raza Khan</p>
+      <a href="index.html">Back to Bhagwal</a>
+      <section class="accuracy-note" lang="ur" dir="rtl">
+  <h3>ایک گزارش</h3>
+  <p>
+    انسان خطا کا پتلا ہے۔ اگر آپ کو قرآن پاک کے متن،
+    ترجمے یا تلاوت میں کوئی غلطی، کمی یا مسئلہ نظر آئے
+    تو براہِ کرم فوری طور پر ہمیں مطلع کریں، تاکہ اس کی
+    اصلاح کی جا سکے۔
+  </p>
+  <strong>آپ کی نشاندہی ہمارے لیے قابلِ قدر ہے۔</strong>
+</section>
+    </footer>
+  </main>
+</body>
+</html>
