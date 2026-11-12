@@ -1,0 +1,29 @@
+{
+  "name": "bhagwal",
+  "version": "1.0.0",
+  "description": "Bhagwal Village website - A village in Kharian Tehsil, Gujrat District, Punjab, Pakistan",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"No tests specified\" && exit 0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Murshad87/Bhagwal.git"
+  },
+  "keywords": [
+    "bhagwal",
+    "village",
+    "pakistan",
+    "gujrat",
+    "kharian"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Murshad87/Bhagwal/issues"
+  },
+  "homepage": "https://github.com/Murshad87/Bhagwal#readme",
+  "dependencies": {
+    "@vercel/analytics": "^1.4.1"
+  }
+}
