@@ -1,6 +1,9 @@
+
 {
   "name": "Bhagwal Village Portal",
   "short_name": "Bhagwal",
+  "description": "Official digital village portal of Bhagwal, Kharian, Gujrat, Punjab, Pakistan.",
+  "lang": "en",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
@@ -8,10 +11,22 @@
   "theme_color": "#2c7a7b",
   "icons": [
     {
-      "src": "./Bhagwal sign board .png",
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ]
 }
