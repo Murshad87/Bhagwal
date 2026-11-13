@@ -89,4 +89,4 @@ You can:
 
 ---
 
-> “Small villages like Bhagwal hold big histories. Let’s make sure they are remembered and recognized — correctly.”  
+> “village like Bhagwal, Kharian Tehsil Gujrat District hold big histories. Let’s make sure they are remembered and recognized — correctly.”  
