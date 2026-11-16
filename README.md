@@ -1,4 +1,6 @@
 # Bhagwal – A Village and Union Council Of Kharian Tehsil, Gujrat District, Punjab, Pakistan 🇵🇰
+[![DOI](https://zenodo.org/badge/718683081.svg)](https://doi.org/10.5281/zenodo.24276910)
+[![ORCID](https://shields.io)](https://orcid.org)
 
 This repository is dedicated to the documentation, digital archiving, and awareness of **Bhagwal** (not *Bhugwal*), a village located in **Tehsil Kharian, District Gujrat, Punjab, Pakistan**.
 
