@@ -3,7 +3,7 @@
   "rewrites": [
     {
       "source": "/.well-known/atproto-did",
-      "destination": "/.well-known/atproto-did"
+      "destination": "/atproto-did.txt"
     }
   ],
   "headers": [
