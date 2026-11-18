@@ -1,5 +1,11 @@
 {
   "cleanUrls": true,
+  "rewrites": [
+    {
+      "source": "/.well-known/atproto-did",
+      "destination": "/.well-known/atproto-did"
+    }
+  ],
   "headers": [
     {
       "source": "/.well-known/atproto-did",
@@ -7,6 +13,10 @@
         {
           "key": "Content-Type",
           "value": "text/plain; charset=utf-8"
+        },
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
         }
       ]
     }
