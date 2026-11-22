@@ -1022,52 +1022,34 @@
           بھگوال, Bhagwal-بھگوال to find this place., don,t confuse with similar Name there are many bhagwal exist worldwide , but Bhagwal, Gujrat  with Wikipedia link , Bhagwal Vercel App
         </p>
       </div>
-   <section id="contact">
+<section id="contact" style="max-width: 900px; margin: 40px auto; padding: 24px; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 14px;">
   <h2>Contact Us</h2>
-  <p>We would like to hear from you about how we can improve this site.</p>
-  <p class="contact-note">Please note that we may not be able to reply to everyone.</p>
+  <p>We would like to hear from you about how we can improve this site, submit community announcements, or list a local business.</p>
+  <p style="margin: 10px 0 18px; font-size: 15px;">
+    📧 <strong>Official Email:</strong> 
+    <a href="mailto:info@bhagwal.pk" style="color: #0284c7; font-weight: 700; text-decoration: none;">info@bhagwal.pk</a>
+  </p>
 
-  <a class="github-profile-link" href="mailto:bhagwalkharian@gmail.com">
-    Email us
-  </a>
-
-  <form class="contact-form" id="contactForm">
-    <div class="form-row">
-      <label for="name">Name <span class="required-mark" aria-label="required">*</span></label>
-      <input id="name" name="name" type="text" placeholder="Enter full name" required />
-    </div>
-
-    <div class="form-row">
-      <label for="email">Email <span class="optional-text">(optional)</span></label>
-      <input id="email" name="email" type="email" placeholder="Enter email" />
-    </div>
-
-    <div class="form-row">
-      <label for="message">Message <span class="required-mark" aria-label="required">*</span></label>
-      <textarea id="message" name="message" placeholder="Short message" required></textarea>
-    </div>
-
-    <button class="submit-btn" type="submit">Send via mail</button>
+  <form onsubmit="sendBhagwalMail(event)" style="display: grid; gap: 12px; max-width: 520px;">
+    <input type="text" id="contactName" placeholder="Your Name *" required style="padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 14px;">
+    <input type="email" id="contactEmail" placeholder="Your Email (optional)" style="padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 14px;">
+    <textarea id="contactMsg" rows="4" placeholder="Write your message or announcement *" required style="padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 14px;"></textarea>
+    <button type="submit" style="background: #0284c7; color: #ffffff; border: none; padding: 11px 18px; border-radius: 8px; font-size: 15px; font-weight: 600; cursor: pointer;">Send to info@bhagwal.pk</button>
   </form>
 </section>
 
 <script>
-  document.getElementById("contactForm").addEventListener("submit", function (event) {
-    event.preventDefault();
-
-    const name = document.getElementById("name").value.trim();
-    const email = document.getElementById("email").value.trim();
-    const message = document.getElementById("message").value.trim();
-
-    const subject = encodeURIComponent("Bhagwal website message");
-    const body = encodeURIComponent(
-      `Name: ${name}\nEmail: ${email || "Not provided"}\n\nMessage:\n${message}`
-    );
-
-    window.location.href =
-      `mailto:bhagwalkharian@gmail.com?subject=${subject}&body=${body}`;
-  });
+  function sendBhagwalMail(e) {
+    e.preventDefault();
+    const name = document.getElementById("contactName").value.trim();
+    const email = document.getElementById("contactEmail").value.trim();
+    const msg = document.getElementById("contactMsg").value.trim();
+    const subject = encodeURIComponent("Bhagwal Portal Inquiry from " + name);
+    const body = encodeURIComponent("Name: " + name + "\nSender Email: " + (email || "Not provided") + "\n\nMessage:\n" + msg);
+    window.location.href = `mailto:info@bhagwal.pk?subject=${subject}&body=${body}`;
+  }
 </script>
+
 
 <script>
 async function loadMastodonFeed() {
