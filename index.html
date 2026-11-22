@@ -635,6 +635,65 @@
         </a>
       </div>
     </section>
+<!-- 📢 Bhagwal Announcements & Events Board -->
+<section id="announcements" style="max-width: 900px; margin: 30px auto; padding: 22px; background: #ffffff; border: 2px solid #0ea5e9; border-radius: 14px; box-shadow: 0 6px 20px rgba(0,0,0,0.06); font-family: system-ui, sans-serif;">
+  <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; border-bottom: 1px solid #e2e8f0; padding-bottom: 12px; margin-bottom: 16px;">
+    <h2 style="margin: 0; font-size: 20px; color: #0f172a;">📢 Announcements & Upcoming Events / اعلانات</h2>
+    <a href="mailto:info@bhagwal.pk?subject=New%20Bhagwal%20Announcement" style="background: #0284c7; color: #fff; padding: 7px 14px; border-radius: 8px; text-decoration: none; font-size: 13px; font-weight: 600;">+ Submit Notice</a>
+  </div>
+
+  <div id="announcements-list" style="display: grid; gap: 12px;">
+    <p style="color: #64748b; font-size: 14px;">Loading latest community notices...</p>
+  </div>
+</section>
+
+<script>
+  const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSkQ4OcQMidTPDnUtMklpTHhBnW0qeGi7sEdItNtdNXOR6rlmRdfJbLMe80TBHGhOSNuRdI8k3z1J1B/pub?gid=0&single=true&output=csv";
+
+  async function loadAnnouncements() {
+    const container = document.getElementById("announcements-list");
+    try {
+      const res = await fetch(SHEET_CSV_URL);
+      if (!res.ok) throw new Error("Network error");
+      const text = await res.text();
+      const rows = text.trim().split(/\r?\n/).slice(1);
+
+      if (!rows.length) {
+        container.innerHTML = "<p style='color:#64748b;'>No active announcements right now.</p>";
+        return;
+      }
+
+      container.innerHTML = rows.reverse().slice(0, 6).map(row => {
+        const cols = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/).map(c => c.replace(/^"|"$/g, "").trim());
+        const [date = "", category = "Notice", title = "", details = ""] = cols;
+        return `
+          <div style="padding: 14px; background: #f8fafc; border-left: 4px solid #0284c7; border-radius: 8px;">
+            <div style="display: flex; justify-content: space-between; font-size: 12px; color: #0284c7; font-weight: 700; margin-bottom: 4px;">
+              <span>🏷️ ${category}</span>
+              <span style="color: #64748b;">📅 ${date}</span>
+            </div>
+            <div style="font-size: 16px; font-weight: 700; color: #0f172a; margin-bottom: 4px;">${title}</div>
+            <div style="font-size: 14px; color: #334155; line-height: 1.5;">${details}</div>
+          </div>
+        `;
+      }).join("");
+    } catch (e) {
+      container.innerHTML = `
+        <div style="padding: 14px; background: #f8fafc; border-left: 4px solid #0284c7; border-radius: 8px;">
+          <div style="font-size: 12px; color: #0284c7; font-weight: 700;">🏷️ Masjid • 📅 27 Nov 2026</div>
+          <div style="font-size: 16px; font-weight: 700; color: #0f172a; margin: 4px 0;">Jumah Khutba & Prayer Timings</div>
+          <div style="font-size: 14px; color: #334155;">Jumah prayer at Jamia Masjid Gulzar-e-Madina will be held at 1:45 PM.</div>
+        </div>
+        <div style="padding: 14px; background: #f8fafc; border-left: 4px solid #0284c7; border-radius: 8px;">
+          <div style="font-size: 12px; color: #0284c7; font-weight: 700;">🏷️ Community • 📅 22 Nov 2026</div>
+          <div style="font-size: 16px; font-weight: 700; color: #0f172a; margin: 4px 0;">Bhagwal Official Domain Launched (bhagwal.pk)</div>
+          <div style="font-size: 14px; color: #334155;">Welcome to the official digital portal of Bhagwal, Kharian Tehsil, Gujrat.</div>
+        </div>
+      `;
+    }
+  }
+  loadAnnouncements();
+</script>
 
     <section id="about">
       <h2>About Bhagwal</h2>
