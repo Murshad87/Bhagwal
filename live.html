@@ -175,7 +175,7 @@
       <div id="audioContainer">
         <audio id="bhagwalAudioPlayer" controls preload="metadata" playsinline></audio>
         <div class="controls-row">
-          <button onclick="playNextTrack()" class="mini-btn">⏭ Next Surah / Naat</button>
+          <button type="button" onclick="nextStation()" class="mini-btn">⏭ Next Station</button>
         </div>
       </div>
 
@@ -200,105 +200,106 @@
   </footer>
 
   <script>
-    // 1. Reliable 114-Surah Tilawat Playlist (QuranicAudio CDN - Mishary Alafasy)
-    const tilawatPlaylist = Array.from({ length: 114 }, (_, i) => {
-      const num = String(i + 1).padStart(3, "0");
-      return {
-        title: `Surah #${i + 1} – Mishary Rashid Alafasy`,
-        url: `https://quranicaudio.com{num}.mp3`
-      };
-    });
-
-    // 2. Reliable Public-Domain Naat & Kalam Playlist (Internet Archive CDN)
-    const naatPlaylist = [
-      {
-        title: "Qasida Burdah Shareef",
-        url: "https://archive.org"
+    const stations = {
+      tilawat: {
+        mode: "audio",
+        url: "https://whmsonic.radio.gov.pk:7002/stream?type=http&nocache=12",
+        label: "Radio Pakistan Saut-ul-Quran"
       },
-      {
-        title: "Zameen-o-Zaman Tumharay Liye",
-        url: "https://archive.org"
+      naat: {
+        mode: "external",
+        url: "https://zeno.fm/radio/kashmir-naat-radio/",
+        description: "Listen to Kashmir Naat Radio on Zeno.",
+        actionLabel: "Open Naat Radio"
       },
-      {
-        title: "Ajab Rang Par Hai Bahar-e-Madinah",
-        url: "https://archive.org"
-      },
-      {
-        title: "Allah Allah Allah Hoo",
-        url: "https://archive.org"
-      }
-    ];
-
-    const externalChannels = {
       news: {
-        url: "https://radio.gov.pk",
-        desc: "Radio Pakistan streams live news on their official portal.",
-        label: "Radio Pakistan Live News Portal"
+        mode: "external",
+        url: "https://www.radio.gov.pk/live-streaming",
+        description: "Choose a live Radio Pakistan station on its official streaming page.",
+        actionLabel: "Open Radio Pakistan"
       },
       gujrat: {
-        url: "https://radioawaz.com.pk",
-        desc: "Awaz FM 105 Gujrat broadcasts via their official live web player.",
-        label: "Awaz FM 105 Gujrat Live"
+        mode: "audio",
+        url: "https://gujratfm105-awazradionetwork.radioca.st/stream?type=http&nocache=15.mp3",
+        label: "Awaz FM 105 Gujrat"
       },
       kharian: {
-        url: "https://soundcloud.com",
-        desc: "Hamara Kharian FM 97 broadcasts and uploads shows on their official SoundCloud channel.",
-        label: "Hamara Kharian FM 97"
+        mode: "external",
+        url: "https://soundcloud.com/search?q=Hamara%20Kharian%20FM%2097",
+        description: "Search SoundCloud for Hamara Kharian FM 97 programs.",
+        actionLabel: "Search SoundCloud"
       }
     };
 
-    let currentMode = "tilawat";
-    let currentIndex = 0;
-
+    const stationOrder = Object.keys(stations);
     const player = document.getElementById("bhagwalAudioPlayer");
     const statusText = document.getElementById("streamStatusText");
+    const audioBox = document.getElementById("audioContainer");
+    const extBox = document.getElementById("externalContainer");
+    const extDesc = document.getElementById("externalDesc");
+    const extBtn = document.getElementById("externalActionBtn");
+    let activeChannel = null;
 
-    function loadTrack(autoPlay = false) {
-      const list = currentMode === "tilawat" ? tilawatPlaylist : naatPlaylist;
-      const track = list[currentIndex];
-      player.src = track.url;
+    function switchChannel(key, autoPlay = true) {
+      const selected = stations[key];
+      if (!selected) return;
+
+      activeChannel = key;
+      document.querySelectorAll(".station-btn").forEach(btn => {
+        btn.classList.toggle("active", btn.id === `btn${key[0].toUpperCase()}${key.slice(1)}`);
+      });
+
       statusText.style.color = "#2c7a7b";
-      statusText.innerText = (autoPlay ? "🔊 Playing: " : "Ready: ") + track.title;
+      if (selected.mode === "audio") {
+        player.pause();
+        player.src = selected.url;
+        player.load();
+        extBox.style.display = "none";
+        audioBox.style.display = "block";
+        statusText.textContent = `Ready: ${selected.label} (Press Play ▶)`;
 
-      if (autoPlay) {
-        player.play().catch(() => {
-          statusText.innerText = "Tap Play ▶ to start: " + track.title;
-        });
+        if (autoPlay) {
+          player.play().catch(() => {
+            statusText.textContent = `Ready: ${selected.label} (Press Play ▶)`;
+          });
+        }
+        return;
       }
+
+      player.pause();
+      player.removeAttribute("src");
+      player.load();
+      audioBox.style.display = "none";
+      extBox.style.display = "block";
+      extDesc.textContent = selected.description;
+      extBtn.href = selected.url;
+      extBtn.textContent = selected.actionLabel;
+      statusText.textContent = selected.actionLabel;
     }
 
-    function playNextTrack() {
-      const list = currentMode === "tilawat" ? tilawatPlaylist : naatPlaylist;
-      currentIndex = (currentIndex + 1) % list.length;
-      loadTrack(true);
+    function nextStation() {
+      const currentIndex = stationOrder.indexOf(activeChannel);
+      const nextIndex = (currentIndex + 1) % stationOrder.length;
+      switchChannel(stationOrder[nextIndex]);
     }
-
-    // Automatically advance to the next Surah or Naat 24/7
-    player.addEventListener("ended", playNextTrack);
-
-    // If any single track fails to load, skip automatically to the next one
-    player.addEventListener("error", () => {
-      statusText.innerText = "⏳ Switching to next available track...";
-      setTimeout(playNextTrack, 1000);
-    });
 
     player.addEventListener("playing", () => {
-      const list = currentMode === "tilawat" ? tilawatPlaylist : naatPlaylist;
       statusText.style.color = "#2c7a7b";
-      statusText.innerText = "🔊 Playing: " + list[currentIndex].title;
+      statusText.textContent = `🔊 Playing: ${stations[activeChannel].label}`;
     });
 
-    function switchChannel(key) {
-      const audioBox = document.getElementById("audioContainer");
-      const extBox = document.getElementById("externalContainer");
-      const extDesc = document.getElementById("externalDesc");
-      const extBtn = document.getElementById("externalActionBtn");
+    player.addEventListener("waiting", () => {
+      statusText.textContent = `⏳ Buffering: ${stations[activeChannel].label}`;
+    });
 
-      document.querySelectorAll(".station-btn").forEach(btn => btn.classList.remove("active"));
-      const btnMap = {
-        tilawat: "btnTilawat",
-        naat: "btnNaat",
-        news: "btnNews",
-        gujrat: "btnGujrat",
-        kharian: "btnKharian"
-      };
+    player.addEventListener("error", () => {
+      const selected = stations[activeChannel];
+      if (selected?.mode !== "audio") return;
+      statusText.style.color = "#dc2626";
+      statusText.textContent = `This stream is unavailable right now: ${selected.label}. Try another station.`;
+    });
+
+    switchChannel("tilawat", false);
+  </script>
+</body>
+</html>
