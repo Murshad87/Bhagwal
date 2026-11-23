@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#2c7a7b" />
+  <title>Bhagwal Live / براہِ راست | 24/7 Tilawat, Naat, News & Local FM</title>
+  <meta name="description" content="Listen live 24/7 Tilawat-e-Quran, Naat-e-Rasool, Radio Pakistan News, Awaz FM 105 Gujrat, and Hamara Kharian FM 97 on Bhagwal.pk." />
+  <link rel="canonical" href="https://bhagwal.pk" />
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://googletagmanager.com"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-780VHP8SXV');
+  </script>
+</head>
+<body style="font-family: system-ui, -apple-system, sans-serif; margin: 0; padding: 0; background-color: #f1f5f9; color: #1e293b;">
+
+  <!-- Top Header -->
+  <header style="background-color: #2c7a7b; color: #ffffff; padding: 20px 16px; text-align: center;">
+    <h1 style="margin: 0; font-size: 24px;">📻 Bhagwal Live / براہِ راست</h1>
+    <p style="margin: 6px 0 12px 0; font-size: 14px; opacity: 0.9;">24/7 Tilawat-e-Quran, Naat, News & Gujrat/Kharian FM Radio</p>
+    <a href="/" style="display: inline-block; background: #ffffff; color: #2c7a7b; padding: 6px 16px; border-radius: 20px; text-decoration: none; font-size: 13px; font-weight: bold;">← Back to Bhagwal Home</a>
+  </header>
+
+  <!-- Main Live Player Container -->
+  <main style="max-width: 640px; margin: 24px auto; padding: 0 16px;">
+    <div style="background: #ffffff; border: 1px solid #cbd5e1; border-radius: 14px; padding: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.06); text-align: center;">
+      <p style="font-size: 14px; color: #475569; margin-top: 0;">Select a station below to listen live 24/7:</p>
+
+      <!-- 5 Station Buttons -->
+      <div style="margin-bottom: 16px; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px;">
+        <button onclick="switchChannel('tilawat')" id="btnTilawat" style="padding: 8px 16px; border-radius: 20px; border: 1px solid #2c7a7b; background: #2c7a7b; color: #fff; cursor: pointer; font-size: 14px; font-weight: 500;">📖 24/7 Tilawat</button>
+        <button onclick="switchChannel('naat')" id="btnNaat" style="padding: 8px 16px; border-radius: 20px; border: 1px solid #2c7a7b; background: #fff; color: #2c7a7b; cursor: pointer; font-size: 14px; font-weight: 500;">🕌 24/7 Naat</button>
+        <button onclick="switchChannel('news')" id="btnNews" style="padding: 8px 16px; border-radius: 20px; border: 1px solid #2c7a7b; background: #fff; color: #2c7a7b; cursor: pointer; font-size: 14px; font-weight: 500;">📰 Radio Pakistan</button>
+        <button onclick="switchChannel('gujrat')" id="btnGujrat" style="padding: 8px 16px; border-radius: 20px; border: 1px solid #2c7a7b; background: #fff; color: #2c7a7b; cursor: pointer; font-size: 14px; font-weight: 500;">📻 Awaz FM 105 Gujrat</button>
+        <button onclick="switchChannel('kharian')" id="btnKharian" style="padding: 8px 16px; border-radius: 20px; border: 1px solid #2c7a7b; background: #fff; color: #2c7a7b; cursor: pointer; font-size: 14px; font-weight: 500;">📻 FM 97 Kharian</button>
+      </div>
+
+      <!-- Direct Audio Player -->
+      <div id="audioContainer">
+        <audio id="bhagwalAudioPlayer" controls style="width: 100%; height: 44px; border-radius: 8px;">
+          <source id="bhagwalStreamSource" src="https://radiojar.com" type="audio/mpeg">
+          Your browser does not support the audio element.
+        </audio>
+      </div>
+
+      <!-- Embedded FM Player -->
+      <div id="embedContainer" style="display: none; margin-top: 10px; border-radius: 8px; overflow: hidden; border: 1px solid #cbd5e1;">
+        <iframe id="bhagwalEmbedFrame" src="" style="width: 100%; height: 160px; border: none;" allow="autoplay"></iframe>
+      </div>
+
+      <p id="streamStatusText" style="font-size: 13px; font-weight: bold; color: #2c7a7b; margin: 12px 0 0 0;">Ready: 24/7 Live Tilawat-e-Quran (Press Play)</p>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer style="text-align: center; padding: 24px 16px; margin-top: 40px; border-top: 1px solid #ddd; font-size: 14px; background-color: #f8fafc; color: #334155;">
+    <p style="margin: 0 0 12px 0;">© 2026 <strong>Bhagwal.pk</strong> – Digital Village Initiative by <strong>Murshad87</strong>. All Rights Reserved.</p>
+    <p style="margin: 0;">
+      <a href="/privacy-policy.html" style="display: inline-block; padding: 6px 14px; margin: 4px; background-color: #2c7a7b; color: #ffffff; text-decoration: none; border-radius: 6px;">Privacy Policy</a>
+      <a href="/disclaimer.html" style="display: inline-block; padding: 6px 14px; margin: 4px; background-color: #2c7a7b; color: #ffffff; text-decoration: none; border-radius: 6px;">Disclaimer</a>
+      <a href="mailto:info@bhagwal.pk" style="display: inline-block; padding: 6px 14px; margin: 4px; background-color: #2c7a7b; color: #ffffff; text-decoration: none; border-radius: 6px;">Contact Us</a>
+    </p>
+  </footer>
+
+  <script>
+    const channels = {
+      tilawat: {
+        type: "audio",
+        url: "https://radiojar.com",
+        label: "Now Playing: 24/7 Live Tilawat-e-Quran (Makkah)"
+      },
+      naat: {
+        type: "audio",
+        url: "https://radio.co",
+        label: "Now Playing: 24/7 Live Naat & Hamd"
+      },
+      news: {
+        type: "audio",
+        url: "https://radio.gov.pk",
+        label: "Now Playing: Radio Pakistan Live News"
+      },
+      gujrat: {
+        type: "audio",
+        url: "https://zeno.fm",
+        label: "Now Playing: Punjab / Gujrat Regional FM Radio"
+      },
+      kharian: {
+        type: "embed",
+        url: "https://soundcloud.com",
+        label: "Now Playing: Hamara Kharian FM 97"
+      }
+    };
+
+    function switchChannel(key) {
+      const player = document.getElementById("bhagwalAudioPlayer");
+      const source = document.getElementById("bhagwalStreamSource");
+      const audioBox = document.getElementById("audioContainer");
+      const embedBox = document.getElementById("embedContainer");
+      const embedFrame = document.getElementById("bhagwalEmbedFrame");
+      const status = document.getElementById("streamStatusText");
+
+      const btns = {
+        tilawat: "btnTilawat",
+        naat: "btnNaat",
+        news: "btnNews",
+        gujrat: "btnGujrat",
+        kharian: "btnKharian"
+      };
+
+      Object.keys(btns).forEach(k => {
+        const btn = document.getElementById(btns[k]);
+        btn.style.background = (k === key) ? '#2c7a7b' : '#fff';
+        btn.style.color = (k === key) ? '#fff' : '#2c7a7b';
+      });
+
+      const selected = channels[key];
+      status.innerText = selected.label;
+
+      if (selected.type === "audio") {
+        embedFrame.src = "";
+        embedBox.style.display = "none";
+        audioBox.style.display = "block";
+        source.src = selected.url;
+        player.load();
+        player.play().catch(() => {});
+      } else {
+        player.pause();
+        audioBox.style.display = "none";
+        embedBox.style.display = "block";
+        embedFrame.src = selected.url;
+      }
+    }
+  </script>
+
+</body>
+</html>
