@@ -15,13 +15,13 @@ This repository is dedicated to the documentation, digital archiving, and awaren
 - **Coordinates**: `32.8239° N, 73.9549° E`
 
 You can view Bhagwal on:  
-  [🌐 Official Website (Bhagwal.pk)](https://bhagwal.pk)
-  [🔗 Linktree (All Social & Community Links)](https://linktr.ee/bhagwal)
+- [🌐 Official Website (Bhagwal.pk)](https://bhagwal.pk)
+- [🔗 Linktree (All Social & Community Links)](https://linktr.ee/bhagwal)
 - [🌍 OpenStreetMap](https://www.openstreetmap.org/search?query=Bhagwal%20Gujrat#map=16/32.8239/73.9549)  
 - [🗺️ Google Maps](https://maps.google.com/?q=Bhagwal,+Gujrat,+Punjab,+Pakistan)  
 - [📘 Wikipedia](https://en.wikipedia.org/wiki/Bhagwal,_Gujrat)
 
----
+-----
 
 ## ✅ Correct Spelling
 
