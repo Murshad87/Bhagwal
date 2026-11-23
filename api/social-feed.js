@@ -1,4 +1,4 @@
-module.exports = async function (req, res) {
+export default async function (req, res) {
   res.setHeader("Cache-Control", "s-maxage=300, stale-while-revalidate=600");
 
   if (req.method !== "GET") {
