@@ -8,131 +8,251 @@
   <meta name="description" content="Listen live 24/7 Tilawat-e-Quran, Naat-e-Rasool, Radio Pakistan News, Awaz FM 105 Gujrat, and Hamara Kharian FM 97 on Bhagwal.pk." />
   <link rel="canonical" href="https://bhagwal.pk" />
 
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://googletagmanager.com"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-780VHP8SXV');
-  </script>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f1f5f9;
+      color: #1e293b;
+      line-height: 1.5;
+    }
+    header {
+      background-color: #2c7a7b;
+      color: #ffffff;
+      padding: 20px 16px;
+      text-align: center;
+    }
+    header h1 { margin: 0; font-size: clamp(20px, 5vw, 26px); }
+    header p { margin: 6px 0 14px 0; font-size: 14px; opacity: 0.92; }
+    .back-btn {
+      display: inline-block;
+      background: #ffffff;
+      color: #2c7a7b;
+      padding: 8px 18px;
+      border-radius: 20px;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
+    }
+    main {
+      max-width: 640px;
+      margin: 20px auto;
+      padding: 0 14px;
+    }
+    .player-card {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 16px;
+      padding: 20px 16px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+      text-align: center;
+    }
+    .station-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+    .station-btn {
+      min-height: 44px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1.5px solid #2c7a7b;
+      background: #ffffff;
+      color: #2c7a7b;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 600;
+      transition: all 0.2s ease;
+    }
+    .station-btn.active {
+      background: #2c7a7b;
+      color: #ffffff;
+    }
+    audio {
+      width: 100%;
+      height: 46px;
+      border-radius: 8px;
+      outline: none;
+    }
+    .external-box {
+      display: none;
+      padding: 16px;
+      background: #f8fafc;
+      border: 1px dashed #94a3b8;
+      border-radius: 12px;
+      margin-top: 8px;
+    }
+    .external-link-btn {
+      display: inline-block;
+      margin-top: 8px;
+      padding: 10px 20px;
+      background: #2c7a7b;
+      color: #ffffff;
+      text-decoration: none;
+      border-radius: 20px;
+      font-weight: 600;
+      font-size: 14px;
+    }
+    #streamStatusText {
+      font-size: 13px;
+      font-weight: 600;
+      color: #2c7a7b;
+      margin: 14px 0 0 0;
+    }
+    footer {
+      text-align: center;
+      padding: 24px 16px;
+      margin-top: 40px;
+      border-top: 1px solid #ddd;
+      font-size: 14px;
+      background-color: #f8fafc;
+      color: #334155;
+    }
+    .footer-links a {
+      display: inline-block;
+      padding: 8px 14px;
+      margin: 4px;
+      background-color: #2c7a7b;
+      color: #ffffff;
+      text-decoration: none;
+      border-radius: 6px;
+      font-size: 13px;
+    }
+  </style>
 </head>
-<body style="font-family: system-ui, -apple-system, sans-serif; margin: 0; padding: 0; background-color: #f1f5f9; color: #1e293b;">
+<body>
 
-  <!-- Top Header -->
-  <header style="background-color: #2c7a7b; color: #ffffff; padding: 20px 16px; text-align: center;">
-    <h1 style="margin: 0; font-size: 24px;">📻 Bhagwal Live / براہِ راست</h1>
-    <p style="margin: 6px 0 12px 0; font-size: 14px; opacity: 0.9;">24/7 Tilawat-e-Quran, Naat, News & Gujrat/Kharian FM Radio</p>
-    <a href="/" style="display: inline-block; background: #ffffff; color: #2c7a7b; padding: 6px 16px; border-radius: 20px; text-decoration: none; font-size: 13px; font-weight: bold;">← Back to Bhagwal Home</a>
+  <header>
+    <h1>📻 Bhagwal Live / براہِ راست</h1>
+    <p>24/7 Tilawat-e-Quran, Naat, News & Gujrat/Kharian FM Radio</p>
+    <a href="/" class="back-btn">← Back to Bhagwal Home</a>
   </header>
 
-  <!-- Main Live Player Container -->
-  <main style="max-width: 640px; margin: 24px auto; padding: 0 16px;">
-    <div style="background: #ffffff; border: 1px solid #cbd5e1; border-radius: 14px; padding: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.06); text-align: center;">
-      <p style="font-size: 14px; color: #475569; margin-top: 0;">Select a station below to listen live 24/7:</p>
+  <main>
+    <div class="player-card">
+      <p style="font-size: 14px; color: #475569; margin-top: 0;">Tap a station below to listen live:</p>
 
-      <!-- 5 Station Buttons -->
-      <div style="margin-bottom: 16px; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px;">
-        <button onclick="switchChannel('tilawat')" id="btnTilawat" style="padding: 8px 16px; border-radius: 20px; border: 1px solid #2c7a7b; background: #2c7a7b; color: #fff; cursor: pointer; font-size: 14px; font-weight: 500;">📖 24/7 Tilawat</button>
-        <button onclick="switchChannel('naat')" id="btnNaat" style="padding: 8px 16px; border-radius: 20px; border: 1px solid #2c7a7b; background: #fff; color: #2c7a7b; cursor: pointer; font-size: 14px; font-weight: 500;">🕌 24/7 Naat</button>
-        <button onclick="switchChannel('news')" id="btnNews" style="padding: 8px 16px; border-radius: 20px; border: 1px solid #2c7a7b; background: #fff; color: #2c7a7b; cursor: pointer; font-size: 14px; font-weight: 500;">📰 Radio Pakistan</button>
-        <button onclick="switchChannel('gujrat')" id="btnGujrat" style="padding: 8px 16px; border-radius: 20px; border: 1px solid #2c7a7b; background: #fff; color: #2c7a7b; cursor: pointer; font-size: 14px; font-weight: 500;">📻 Awaz FM 105 Gujrat</button>
-        <button onclick="switchChannel('kharian')" id="btnKharian" style="padding: 8px 16px; border-radius: 20px; border: 1px solid #2c7a7b; background: #fff; color: #2c7a7b; cursor: pointer; font-size: 14px; font-weight: 500;">📻 FM 97 Kharian</button>
+      <div class="station-grid">
+        <button onclick="switchChannel('tilawat')" id="btnTilawat" class="station-btn active">📖 24/7 Tilawat</button>
+        <button onclick="switchChannel('naat')" id="btnNaat" class="station-btn">🕌 24/7 Naat</button>
+        <button onclick="switchChannel('news')" id="btnNews" class="station-btn">📰 Radio Pakistan</button>
+        <button onclick="switchChannel('gujrat')" id="btnGujrat" class="station-btn">📻 Awaz FM 105 Gujrat</button>
+        <button onclick="switchChannel('kharian')" id="btnKharian" class="station-btn">📻 FM 97 Kharian</button>
       </div>
 
-      <!-- Direct Audio Player -->
+      <!-- Native HTML5 Audio Player (Mobile + Desktop) -->
       <div id="audioContainer">
-        <audio id="bhagwalAudioPlayer" controls style="width: 100%; height: 44px; border-radius: 8px;">
-          <source id="bhagwalStreamSource" src="https://radiojar.com" type="audio/mpeg">
+        <audio id="bhagwalAudioPlayer" controls preload="none" playsinline>
+          <source id="bhagwalStreamSource" src="https://qurango.net" type="audio/mpeg">
           Your browser does not support the audio element.
         </audio>
       </div>
 
-      <!-- Embedded FM Player -->
-      <div id="embedContainer" style="display: none; margin-top: 10px; border-radius: 8px; overflow: hidden; border: 1px solid #cbd5e1;">
-        <iframe id="bhagwalEmbedFrame" src="" style="width: 100%; height: 160px; border: none;" allow="autoplay"></iframe>
+      <!-- Fallback Box for Stations Blocking Iframe/Direct Stream -->
+      <div id="externalContainer" class="external-box">
+        <p id="externalDesc" style="margin: 0; font-size: 13px; color: #475569;"></p>
+        <a id="externalActionBtn" href="#" target="_blank" rel="noopener noreferrer" class="external-link-btn">▶ Open Live Stream</a>
       </div>
 
-      <p id="streamStatusText" style="font-size: 13px; font-weight: bold; color: #2c7a7b; margin: 12px 0 0 0;">Ready: 24/7 Live Tilawat-e-Quran (Press Play)</p>
+      <p id="streamStatusText">Ready: 24/7 Live Tilawat-e-Quran (Press Play)</p>
     </div>
   </main>
 
-  <!-- Footer -->
-  <footer style="text-align: center; padding: 24px 16px; margin-top: 40px; border-top: 1px solid #ddd; font-size: 14px; background-color: #f8fafc; color: #334155;">
+  <footer>
     <p style="margin: 0 0 12px 0;">© 2026 <strong>Bhagwal.pk</strong> – Digital Village Initiative by <strong>Murshad87</strong>. All Rights Reserved.</p>
-    <p style="margin: 0;">
-      <a href="/privacy-policy.html" style="display: inline-block; padding: 6px 14px; margin: 4px; background-color: #2c7a7b; color: #ffffff; text-decoration: none; border-radius: 6px;">Privacy Policy</a>
-      <a href="/disclaimer.html" style="display: inline-block; padding: 6px 14px; margin: 4px; background-color: #2c7a7b; color: #ffffff; text-decoration: none; border-radius: 6px;">Disclaimer</a>
-      <a href="mailto:info@bhagwal.pk" style="display: inline-block; padding: 6px 14px; margin: 4px; background-color: #2c7a7b; color: #ffffff; text-decoration: none; border-radius: 6px;">Contact Us</a>
-    </p>
+    <div class="footer-links">
+      <a href="/privacy-policy.html">Privacy Policy</a>
+      <a href="/disclaimer.html">Disclaimer</a>
+      <a href="mailto:info@bhagwal.pk">Contact Us</a>
+    </div>
   </footer>
 
   <script>
     const channels = {
       tilawat: {
-        type: "audio",
-        url: "https://radiojar.com",
-        label: "Now Playing: 24/7 Live Tilawat-e-Quran (Makkah)"
+        mode: "audio",
+        url: "https://qurango.net",
+        label: "Selected: 24/7 Live Tilawat-e-Quran"
       },
       naat: {
-        type: "audio",
-        url: "https://radio.co",
-        label: "Now Playing: 24/7 Live Naat & Hamd"
+        mode: "audio",
+        url: "https://zeno.fm",
+        label: "Selected: 24/7 Live Naat & Hamd"
       },
       news: {
-        type: "audio",
-        url: "https://radio.gov.pk",
-        label: "Now Playing: Radio Pakistan Live News"
+        mode: "external",
+        url: "https://www.radio.gov.pk/live-streaming",
+        desc: "Radio Pakistan streams directly on their official portal for mobile and desktop.",
+        label: "Radio Pakistan Live News Portal"
       },
       gujrat: {
-        type: "audio",
-        url: "https://zeno.fm",
-        label: "Now Playing: Punjab / Gujrat Regional FM Radio"
+        mode: "external",
+        url: "https://radioawaz.com.pk/live-fm-105-gujrat/",
+        desc: "Awaz FM 105 Gujrat broadcasts via their official live web player.",
+        label: "Awaz FM 105 Gujrat Live"
       },
       kharian: {
-        type: "embed",
+        mode: "external",
         url: "https://soundcloud.com",
-        label: "Now Playing: Hamara Kharian FM 97"
+        desc: "Hamara Kharian FM 97 broadcasts and uploads shows on their official SoundCloud channel.",
+        label: "Hamara Kharian FM 97"
       }
     };
 
-    function switchChannel(key) {
-      const player = document.getElementById("bhagwalAudioPlayer");
-      const source = document.getElementById("bhagwalStreamSource");
-      const audioBox = document.getElementById("audioContainer");
-      const embedBox = document.getElementById("embedContainer");
-      const embedFrame = document.getElementById("bhagwalEmbedFrame");
-      const status = document.getElementById("streamStatusText");
+    const player = document.getElementById("bhagwalAudioPlayer");
+    const statusText = document.getElementById("streamStatusText");
 
-      const btns = {
+    player.addEventListener("playing", () => {
+      statusText.style.color = "#2c7a7b";
+      statusText.innerText = "🔊 Live Audio Playing...";
+    });
+
+    player.addEventListener("waiting", () => {
+      statusText.innerText = "⏳ Buffering live stream...";
+    });
+
+    player.addEventListener("error", () => {
+      statusText.style.color = "#dc2626";
+      statusText.innerText = "⚠️ Stream temporarily offline or blocked by network. Try another channel.";
+    });
+
+    function switchChannel(key) {
+      const audioBox = document.getElementById("audioContainer");
+      const extBox = document.getElementById("externalContainer");
+      const extDesc = document.getElementById("externalDesc");
+      const extBtn = document.getElementById("externalActionBtn");
+
+      document.querySelectorAll(".station-btn").forEach(btn => btn.classList.remove("active"));
+      const activeBtnMap = {
         tilawat: "btnTilawat",
         naat: "btnNaat",
         news: "btnNews",
         gujrat: "btnGujrat",
         kharian: "btnKharian"
       };
-
-      Object.keys(btns).forEach(k => {
-        const btn = document.getElementById(btns[k]);
-        btn.style.background = (k === key) ? '#2c7a7b' : '#fff';
-        btn.style.color = (k === key) ? '#fff' : '#2c7a7b';
-      });
+      document.getElementById(activeBtnMap[key]).classList.add("active");
 
       const selected = channels[key];
-      status.innerText = selected.label;
+      statusText.style.color = "#2c7a7b";
+      statusText.innerText = selected.label;
 
-      if (selected.type === "audio") {
-        embedFrame.src = "";
-        embedBox.style.display = "none";
+      if (selected.mode === "audio") {
+        extBox.style.display = "none";
         audioBox.style.display = "block";
-        source.src = selected.url;
+        player.src = selected.url;
         player.load();
-        player.play().catch(() => {});
+        player.play().catch(() => {
+          statusText.innerText = selected.label + " (Press Play ▶)";
+        });
       } else {
         player.pause();
         audioBox.style.display = "none";
-        embedBox.style.display = "block";
-        embedFrame.src = selected.url;
+        extBox.style.display = "block";
+        extDesc.innerText = selected.desc;
+        extBtn.href = selected.url;
       }
     }
   </script>
