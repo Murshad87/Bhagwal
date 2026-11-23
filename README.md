@@ -94,9 +94,11 @@ You can:
 ---
 ---
 
+---
+
 ## 📄 License & Attribution
 
-- **Data & Archival Content:** Licensed under [Creative Commons Attribution 4.0 International (CC BY 4.0)](https://creativecommons.org) via [Zenodo DOI: 10.5281/zenodo.24276910](https://doi.org).
+- **Data & Archival Content:** Licensed under [Creative Commons Attribution 4.0 International (CC BY 4.0)](https://creativecommons.org).
 - **Official Contact:** [info@bhagwal.pk](mailto:info@bhagwal.pk)
 
 <p align="center">
