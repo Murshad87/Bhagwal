@@ -1,7 +1,7 @@
 (() => {
   // Replace this with the Google Analytics 4 Measurement ID (for example: G-XXXXXXXXXX).
   // Analytics stays disabled until a real ID is configured.
-  const GA_MEASUREMENT_ID = "G-780VHP8SXV";
+  const GA_MEASUREMENT_ID = "G-XXXXXXXXXX";
   const analyticsReady = /^G-[A-Z0-9]+$/.test(GA_MEASUREMENT_ID) &&
     GA_MEASUREMENT_ID !== "G-XXXXXXXXXX";
 
