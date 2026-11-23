@@ -8,6 +8,15 @@
   <meta name="description" content="Listen live 24/7 Tilawat-e-Quran, Naat-e-Rasool, Radio Pakistan News, Awaz FM 105 Gujrat, and Hamara Kharian FM 97 on Bhagwal.pk." />
   <link rel="canonical" href="https://bhagwal.pk" />
 
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://googletagmanager.com"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-780VHP8SXV');
+  </script>
+
   <style>
     * { box-sizing: border-box; }
     body {
@@ -77,6 +86,22 @@
       border-radius: 8px;
       outline: none;
     }
+    .controls-row {
+      margin-top: 10px;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+    }
+    .mini-btn {
+      padding: 8px 16px;
+      border-radius: 16px;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      color: #334155;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+    }
     .external-box {
       display: none;
       padding: 16px;
@@ -125,16 +150,19 @@
 </head>
 <body>
 
+  <!-- Top Header -->
   <header>
     <h1>📻 Bhagwal Live / براہِ راست</h1>
     <p>24/7 Tilawat-e-Quran, Naat, News & Gujrat/Kharian FM Radio</p>
     <a href="/" class="back-btn">← Back to Bhagwal Home</a>
   </header>
 
+  <!-- Main Live Player Container -->
   <main>
     <div class="player-card">
       <p style="font-size: 14px; color: #475569; margin-top: 0;">Tap a station below to listen live:</p>
 
+      <!-- 5 Station Buttons -->
       <div class="station-grid">
         <button onclick="switchChannel('tilawat')" id="btnTilawat" class="station-btn active">📖 24/7 Tilawat</button>
         <button onclick="switchChannel('naat')" id="btnNaat" class="station-btn">🕌 24/7 Naat</button>
@@ -143,24 +171,25 @@
         <button onclick="switchChannel('kharian')" id="btnKharian" class="station-btn">📻 FM 97 Kharian</button>
       </div>
 
-      <!-- Native HTML5 Audio Player (Mobile + Desktop) -->
+      <!-- Native HTML5 Audio Player -->
       <div id="audioContainer">
-        <audio id="bhagwalAudioPlayer" controls preload="none" playsinline>
-          <source id="bhagwalStreamSource" src="https://qurango.net" type="audio/mpeg">
-          Your browser does not support the audio element.
-        </audio>
+        <audio id="bhagwalAudioPlayer" controls preload="metadata" playsinline></audio>
+        <div class="controls-row">
+          <button onclick="playNextTrack()" class="mini-btn">⏭ Next Surah / Naat</button>
+        </div>
       </div>
 
-      <!-- Fallback Box for Stations Blocking Iframe/Direct Stream -->
+      <!-- Ad-Safe Outbound Links for Local FM & News -->
       <div id="externalContainer" class="external-box">
         <p id="externalDesc" style="margin: 0; font-size: 13px; color: #475569;"></p>
-        <a id="externalActionBtn" href="#" target="_blank" rel="noopener noreferrer" class="external-link-btn">▶ Open Live Stream</a>
+        <a id="externalActionBtn" href="#" target="_blank" rel="noopener noreferrer" class="external-link-btn">▶ Open Official Live Player</a>
       </div>
 
-      <p id="streamStatusText">Ready: 24/7 Live Tilawat-e-Quran (Press Play)</p>
+      <p id="streamStatusText">Ready: 24/7 Tilawat-e-Quran (Press Play ▶)</p>
     </div>
   </main>
 
+  <!-- Footer -->
   <footer>
     <p style="margin: 0 0 12px 0;">© 2026 <strong>Bhagwal.pk</strong> – Digital Village Initiative by <strong>Murshad87</strong>. All Rights Reserved.</p>
     <div class="footer-links">
@@ -171,52 +200,92 @@
   </footer>
 
   <script>
-    const channels = {
-      tilawat: {
-        mode: "audio",
-        url: "https://qurango.net",
-        label: "Selected: 24/7 Live Tilawat-e-Quran"
+    // 1. Reliable 114-Surah Tilawat Playlist (QuranicAudio CDN - Mishary Alafasy)
+    const tilawatPlaylist = Array.from({ length: 114 }, (_, i) => {
+      const num = String(i + 1).padStart(3, "0");
+      return {
+        title: `Surah #${i + 1} – Mishary Rashid Alafasy`,
+        url: `https://quranicaudio.com{num}.mp3`
+      };
+    });
+
+    // 2. Reliable Public-Domain Naat & Kalam Playlist (Internet Archive CDN)
+    const naatPlaylist = [
+      {
+        title: "Qasida Burdah Shareef",
+        url: "https://archive.org"
       },
-      naat: {
-        mode: "audio",
-        url: "https://zeno.fm",
-        label: "Selected: 24/7 Live Naat & Hamd"
+      {
+        title: "Zameen-o-Zaman Tumharay Liye",
+        url: "https://archive.org"
       },
+      {
+        title: "Ajab Rang Par Hai Bahar-e-Madinah",
+        url: "https://archive.org"
+      },
+      {
+        title: "Allah Allah Allah Hoo",
+        url: "https://archive.org"
+      }
+    ];
+
+    const externalChannels = {
       news: {
-        mode: "external",
-        url: "https://www.radio.gov.pk/live-streaming",
-        desc: "Radio Pakistan streams directly on their official portal for mobile and desktop.",
+        url: "https://radio.gov.pk",
+        desc: "Radio Pakistan streams live news on their official portal.",
         label: "Radio Pakistan Live News Portal"
       },
       gujrat: {
-        mode: "external",
-        url: "https://radioawaz.com.pk/live-fm-105-gujrat/",
+        url: "https://radioawaz.com.pk",
         desc: "Awaz FM 105 Gujrat broadcasts via their official live web player.",
         label: "Awaz FM 105 Gujrat Live"
       },
       kharian: {
-        mode: "external",
         url: "https://soundcloud.com",
         desc: "Hamara Kharian FM 97 broadcasts and uploads shows on their official SoundCloud channel.",
         label: "Hamara Kharian FM 97"
       }
     };
 
+    let currentMode = "tilawat";
+    let currentIndex = 0;
+
     const player = document.getElementById("bhagwalAudioPlayer");
     const statusText = document.getElementById("streamStatusText");
 
-    player.addEventListener("playing", () => {
+    function loadTrack(autoPlay = false) {
+      const list = currentMode === "tilawat" ? tilawatPlaylist : naatPlaylist;
+      const track = list[currentIndex];
+      player.src = track.url;
       statusText.style.color = "#2c7a7b";
-      statusText.innerText = "🔊 Live Audio Playing...";
-    });
+      statusText.innerText = (autoPlay ? "🔊 Playing: " : "Ready: ") + track.title;
 
-    player.addEventListener("waiting", () => {
-      statusText.innerText = "⏳ Buffering live stream...";
-    });
+      if (autoPlay) {
+        player.play().catch(() => {
+          statusText.innerText = "Tap Play ▶ to start: " + track.title;
+        });
+      }
+    }
 
+    function playNextTrack() {
+      const list = currentMode === "tilawat" ? tilawatPlaylist : naatPlaylist;
+      currentIndex = (currentIndex + 1) % list.length;
+      loadTrack(true);
+    }
+
+    // Automatically advance to the next Surah or Naat 24/7
+    player.addEventListener("ended", playNextTrack);
+
+    // If any single track fails to load, skip automatically to the next one
     player.addEventListener("error", () => {
-      statusText.style.color = "#dc2626";
-      statusText.innerText = "⚠️ Stream temporarily offline or blocked by network. Try another channel.";
+      statusText.innerText = "⏳ Switching to next available track...";
+      setTimeout(playNextTrack, 1000);
+    });
+
+    player.addEventListener("playing", () => {
+      const list = currentMode === "tilawat" ? tilawatPlaylist : naatPlaylist;
+      statusText.style.color = "#2c7a7b";
+      statusText.innerText = "🔊 Playing: " + list[currentIndex].title;
     });
 
     function switchChannel(key) {
@@ -226,36 +295,10 @@
       const extBtn = document.getElementById("externalActionBtn");
 
       document.querySelectorAll(".station-btn").forEach(btn => btn.classList.remove("active"));
-      const activeBtnMap = {
+      const btnMap = {
         tilawat: "btnTilawat",
         naat: "btnNaat",
         news: "btnNews",
         gujrat: "btnGujrat",
         kharian: "btnKharian"
       };
-      document.getElementById(activeBtnMap[key]).classList.add("active");
-
-      const selected = channels[key];
-      statusText.style.color = "#2c7a7b";
-      statusText.innerText = selected.label;
-
-      if (selected.mode === "audio") {
-        extBox.style.display = "none";
-        audioBox.style.display = "block";
-        player.src = selected.url;
-        player.load();
-        player.play().catch(() => {
-          statusText.innerText = selected.label + " (Press Play ▶)";
-        });
-      } else {
-        player.pause();
-        audioBox.style.display = "none";
-        extBox.style.display = "block";
-        extDesc.innerText = selected.desc;
-        extBtn.href = selected.url;
-      }
-    }
-  </script>
-
-</body>
-</html>
