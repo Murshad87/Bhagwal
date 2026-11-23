@@ -92,5 +92,14 @@ You can:
 - All individuals working to document local geography and preserve cultural identity online.
 
 ---
+---
 
-> “village like Bhagwal, Kharian Tehsil Gujrat District hold big histories. Let’s make sure they are remembered and recognized — correctly.”  
+## 📄 License & Attribution
+
+- **Data & Archival Content:** Licensed under [Creative Commons Attribution 4.0 International (CC BY 4.0)](https://creativecommons.org) via [Zenodo DOI: 10.5281/zenodo.24276910](https://doi.org).
+- **Official Contact:** [info@bhagwal.pk](mailto:info@bhagwal.pk)
+
+<p align="center">
+  © 2026 <a href="https://bhagwal.pk"><strong>Bhagwal.pk</strong></a> – Digital Village Initiative by <a href="https://github.com"><strong>Murshad87</strong></a>. All Rights Reserved.
+</p>
+
