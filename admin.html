@@ -164,7 +164,56 @@
       addText(card, 'p', 'Mobile: ' + (item.mobile_number || 'Not provided'));
       addText(card, 'p', 'Submitted: ' + (item.created_at ? new Date(item.created_at).toLocaleString() : 'Unknown'), 'review-meta');
       addText(card, 'p', 'Status: ' + (item.status || 'pending'), 'review-meta');
+
+      const actions = document.createElement('div');
+      actions.style.display = 'flex';
+      actions.style.flexWrap = 'wrap';
+      actions.style.gap = '8px';
+      actions.style.marginTop = '12px';
+
+      const approveButton = document.createElement('button');
+      approveButton.type = 'button';
+      approveButton.textContent = 'Approve & publish';
+      approveButton.addEventListener('click', () => reviewSubmission(kind, item.id, 'approve', approveButton, rejectButton));
+
+      const rejectButton = document.createElement('button');
+      rejectButton.type = 'button';
+      rejectButton.textContent = 'Reject';
+      rejectButton.className = 'secondary';
+      rejectButton.addEventListener('click', () => reviewSubmission(kind, item.id, 'reject', rejectButton, approveButton));
+
+      actions.append(approveButton, rejectButton);
+      card.appendChild(actions);
       target.appendChild(card);
+    }
+
+    async function reviewSubmission(kind, id, action, activeButton, otherButton) {
+      let reason = '';
+      if (action === 'reject') {
+        reason = window.prompt('Please enter a reason for rejection:')?.trim() || '';
+        if (!reason) {
+          reviewStatus.textContent = 'Rejection cancelled. A reason is required.';
+          return;
+        }
+      }
+
+      activeButton.disabled = true;
+      otherButton.disabled = true;
+      reviewStatus.textContent = action === 'approve' ? 'Publishing submission...' : 'Rejecting submission...';
+
+      const { data, error } = await supabase.functions.invoke('review-submission', {
+        body: { kind, id, action, reason }
+      });
+
+      if (error || data?.error) {
+        reviewStatus.textContent = 'Review failed: ' + (data?.error || error.message);
+        activeButton.disabled = false;
+        otherButton.disabled = false;
+        return;
+      }
+
+      reviewStatus.textContent = data?.message || 'Submission reviewed.';
+      await loadPendingSubmissions();
     }
 
     async function loadPendingSubmissions() {
