@@ -40,6 +40,43 @@
     header p { margin: 8px 0 0; }
     main { max-width: 1200px; margin: auto; padding: 24px 16px; }
     .back-link { display: inline-block; margin-bottom: 18px; color: var(--primary-dark); }
+
+    .submission-panel {
+      max-width: 760px;
+      margin: 0 auto 30px;
+      padding: 22px;
+      border: 1px solid #d8e2df;
+      border-radius: 14px;
+      background: #fff;
+      box-shadow: 0 5px 18px rgba(16, 33, 35, .06);
+    }
+    .submission-panel h2 { margin-top: 0; }
+    .submission-panel form { display: grid; gap: 9px; }
+    .submission-panel label { font-weight: 600; }
+    .submission-panel input,
+    .submission-panel textarea {
+      width: 100%;
+      padding: 11px 12px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      font: inherit;
+    }
+    .submission-panel small { color: #64748b; }
+    .submission-panel button {
+      width: fit-content;
+      border: 0;
+      border-radius: 8px;
+      padding: 12px 18px;
+      color: #fff;
+      background: var(--primary);
+      font: inherit;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .submission-panel button:disabled { opacity: .65; cursor: wait; }
+    #gallery-form-status { min-height: 1.5em; margin: 4px 0 0; }
+    .honeypot { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+
     .gallery {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
@@ -74,6 +111,42 @@
   </header>
   <main>
     <a class="back-link" href="./">← Back to Bhagwal Village</a>
+
+    <section class="submission-panel" aria-labelledby="photo-submit-heading">
+      <h2 id="photo-submit-heading">Share a Photo of Bhagwal</h2>
+      <p>Submit your village photos for review. Approved photos will appear in the public gallery.</p>
+      <form id="gallery-submission-form" enctype="multipart/form-data">
+        <label for="gallery-submitter-name">Your name *</label>
+        <input id="gallery-submitter-name" name="submitter_name" type="text" maxlength="80" autocomplete="name" required placeholder="Enter your name">
+
+        <label for="gallery-mobile-number">Private mobile number *</label>
+        <input id="gallery-mobile-number" name="mobile_number" type="tel" maxlength="25" autocomplete="tel" required placeholder="03XXXXXXXXX or +923XXXXXXXXX">
+        <small>Accepted formats: 03XXXXXXXXX, +923XXXXXXXXX, or 00923XXXXXXXXX. Your number is kept private.</small>
+
+        <label for="gallery-photo-title">Photo title *</label>
+        <input id="gallery-photo-title" name="title" type="text" minlength="3" maxlength="140" required placeholder="e.g. Bhagwal village fields">
+
+        <label for="gallery-photo-description">Description</label>
+        <textarea id="gallery-photo-description" name="description" maxlength="1500" rows="3" placeholder="Tell us a little about this photo (optional)"></textarea>
+
+        <label for="gallery-photo-file">Choose photo *</label>
+        <input id="gallery-photo-file" name="file" type="file" accept="image/jpeg,image/png,image/webp" required>
+        <small>JPG, PNG or WebP · Maximum 10 MB · Minimum 1280 × 720 pixels.</small>
+
+        <div class="turnstile-widget">
+          <div class="cf-turnstile" data-sitekey="0x4AAAAAAGQdsqNUKD1CiIo3" data-action="gallery_submit"></div>
+        </div>
+
+        <div class="honeypot" aria-hidden="true">
+          <label for="gallery-website">Website</label>
+          <input id="gallery-website" name="website" type="text" tabindex="-1" autocomplete="off">
+        </div>
+
+        <button id="gallery-submit-button" type="submit">Submit Photo for Review</button>
+        <p id="gallery-form-status" role="status" aria-live="polite"></p>
+      </form>
+    </section>
+
     <div class="gallery" id="gallery" aria-label="Bhagwal village photo gallery">
       <p>Loading photos...</p>
     </div>
@@ -103,5 +176,7 @@
     </script>
   </main>
   <footer>Bhagwal Village · Digital Village Initiative</footer>
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+  <script type="module" src="./gallery-form.js"></script>
 </body>
 </html>
