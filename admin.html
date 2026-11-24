@@ -16,7 +16,16 @@
     button { width: fit-content; border: 0; border-radius: 6px; padding: 10px 16px; background: #176b52; color: #fff; cursor: pointer; }
     button.secondary { background: #59645f; }
     .hidden { display: none; }
+
     #status { min-height: 24px; color: #59645f; }
+    .review-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
+    .review-card { border: 1px solid #dfe6e2; border-radius: 8px; padding: 14px; background: #fbfdfc; overflow-wrap: anywhere; }
+    .review-card h3 { margin: 0 0 8px; font-size: 1rem; }
+    .review-card p { white-space: pre-wrap; margin: 6px 0; }
+    .review-meta { color: #59645f; font-size: .85rem; }
+    .review-photo { display: block; max-width: 100%; max-height: 220px; object-fit: contain; margin: 8px 0; border-radius: 6px; }
+    .empty-state { color: #59645f; }
+
   </style>
 </head>
 <body>
@@ -34,6 +43,27 @@
     </section>
 
     <section id="dashboard" class="hidden">
+      <div class="panel">
+        <h2>Community submissions awaiting review</h2>
+        <p class="review-meta">These submissions are private. Review them here before any content is published.</p>
+        <button id="refreshSubmissions" type="button" class="secondary">Refresh submissions</button>
+        <p id="reviewStatus" class="review-meta" aria-live="polite"></p>
+        <div class="review-grid">
+          <section>
+            <h3>Notices</h3>
+            <div id="pendingNotices" class="empty-state">Loading...</div>
+          </section>
+          <section>
+            <h3>Business listings</h3>
+            <div id="pendingBusinesses" class="empty-state">Loading...</div>
+          </section>
+          <section>
+            <h3>Gallery photos</h3>
+            <div id="pendingPhotos" class="empty-state">Loading...</div>
+          </section>
+        </div>
+      </div>
+
       <div class="panel">
         <h2>New announcement</h2>
         <form id="noticeForm">
@@ -86,6 +116,120 @@
     const login = document.querySelector('#login');
     const dashboard = document.querySelector('#dashboard');
 
+    const reviewStatus = document.querySelector('#reviewStatus');
+
+    function addText(parent, tag, text, className = '') {
+      const element = document.createElement(tag);
+      element.textContent = text ?? '';
+      if (className) element.className = className;
+      parent.appendChild(element);
+      return element;
+    }
+
+    function showEmpty(target, message) {
+      target.replaceChildren();
+      addText(target, 'p', message, 'empty-state');
+    }
+
+    function renderSubmission(target, item, kind) {
+      const card = document.createElement('article');
+      card.className = 'review-card';
+      const heading = kind === 'notice' ? item.title :
+        kind === 'business' ? (item.name_eng || item.name_urdu) : item.title;
+      addText(card, 'h3', heading || 'Untitled submission');
+      if (kind === 'notice') {
+        addText(card, 'p', item.description);
+        addText(card, 'p', 'Category: ' + (item.category || 'Notice'), 'review-meta');
+      } else if (kind === 'business') {
+        addText(card, 'p', item.name_urdu || '');
+        addText(card, 'p', 'Category: ' + (item.category || ''));
+        addText(card, 'p', item.description || '');
+        addText(card, 'p', 'Phone: ' + (item.phone || 'Not provided'));
+        addText(card, 'p', 'Location: ' + (item.location || 'Not provided'));
+      } else {
+        addText(card, 'p', item.description || '');
+        if (item.previewUrl) {
+          const img = document.createElement('img');
+          img.className = 'review-photo';
+          img.src = item.previewUrl;
+          img.alt = item.title || 'Submitted photo';
+          img.loading = 'lazy';
+          card.appendChild(img);
+        }
+        addText(card, 'p', 'File: ' + (item.mime_type || 'Unknown') +
+          ' · ' + Math.round((item.file_size_bytes || 0) / 1024) + ' KB', 'review-meta');
+        addText(card, 'p', 'Image dimensions: ' + item.image_width + ' × ' + item.image_height, 'review-meta');
+      }
+      addText(card, 'p', 'Submitted by: ' + (item.submitter_name || 'Not provided'));
+      addText(card, 'p', 'Mobile: ' + (item.mobile_number || 'Not provided'));
+      addText(card, 'p', 'Submitted: ' + (item.created_at ? new Date(item.created_at).toLocaleString() : 'Unknown'), 'review-meta');
+      addText(card, 'p', 'Status: ' + (item.status || 'pending'), 'review-meta');
+      target.appendChild(card);
+    }
+
+    async function loadPendingSubmissions() {
+      reviewStatus.textContent = 'Loading pending submissions...';
+      const targets = {
+        notice: document.querySelector('#pendingNotices'),
+        business: document.querySelector('#pendingBusinesses'),
+        photo: document.querySelector('#pendingPhotos')
+      };
+      Object.values(targets).forEach(target => showEmpty(target, 'Loading...'));
+
+      const requests = await Promise.all([
+        supabase.from('notice_submissions')
+          .select('id, submitter_name, mobile_number, title, description, category, status, created_at')
+          .eq('status', 'pending').order('created_at', { ascending: false }).limit(50),
+        supabase.from('business_submissions')
+          .select('id, submitter_name, mobile_number, name_urdu, name_eng, category, description, phone, location, status, created_at')
+          .eq('status', 'pending').order('created_at', { ascending: false }).limit(50),
+        supabase.from('gallery_submissions')
+          .select('id, submitter_name, mobile_number, title, description, storage_path, mime_type, file_size_bytes, image_width, image_height, status, created_at')
+          .eq('status', 'pending').order('created_at', { ascending: false }).limit(50)
+      ]);
+
+      const labels = ['Notices', 'Business listings', 'Gallery photos'];
+      let errors = [];
+      requests.forEach((result, index) => {
+        if (result.error) {
+          errors.push(labels[index] + ': ' + result.error.message);
+          showEmpty(Object.values(targets)[index], 'Could not load submissions. Check table setup and admin read policy.');
+          return;
+        }
+        if (!result.data?.length) {
+          showEmpty(Object.values(targets)[index], 'No pending submissions.');
+          return;
+        }
+        result.data.forEach(item => renderSubmission(Object.values(targets)[index], item,
+          ['notice', 'business', 'photo'][index]));
+      });
+
+      const photos = requests[2];
+      if (!photos.error && photos.data?.length) {
+        for (const item of photos.data) {
+          const { data, error } = await supabase.storage
+            .from('gallery-submissions').createSignedUrl(item.storage_path, 300);
+          if (!error && data?.signedUrl) item.previewUrl = data.signedUrl;
+          const cardTarget = targets.photo;
+          const existingCard = [...cardTarget.children].find(node =>
+            node.querySelector('h3')?.textContent === (item.title || 'Untitled submission') &&
+            node.textContent.includes(item.mobile_number || ''));
+          if (existingCard && item.previewUrl) {
+            const img = document.createElement('img');
+            img.className = 'review-photo';
+            img.src = item.previewUrl;
+            img.alt = item.title || 'Submitted photo';
+            img.loading = 'lazy';
+            existingCard.insertBefore(img, existingCard.querySelector('p'));
+          }
+        }
+      }
+
+      reviewStatus.textContent = errors.length
+        ? errors.join(' | ')
+        : 'Loaded pending submissions. Approval and rejection actions will be enabled after secure server-side review functions are installed.';
+    }
+
     async function requireAdmin() {
       const { data: { session } } = await supabase.auth.getSession();
       if (!session) {
@@ -113,8 +257,11 @@
       login.classList.add('hidden');
       dashboard.classList.remove('hidden');
       status.textContent = `Signed in as ${session.user.email}`;
+      await loadPendingSubmissions();
       return true;
     }
+
+    document.querySelector('#refreshSubmissions').addEventListener('click', loadPendingSubmissions);
 
     document.querySelector('#loginForm').addEventListener('submit', async event => {
       event.preventDefault();
