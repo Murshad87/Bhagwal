@@ -59,6 +59,66 @@
             <!-- Cards will be dynamically loaded via JavaScript -->
         </div>
 
+
+        <section id="business-submission" style="background:#ffffff; border:1px solid #d1fae5; border-radius:16px; padding:22px; margin-top:28px; box-shadow:0 4px 16px rgba(0,0,0,.05);">
+            <h2 class="text-2xl font-bold text-emerald-700 mb-2">List Your Business / اپنا کاروبار درج کروائیں</h2>
+            <p class="text-gray-600 mb-5">Submit your shop, business or service for admin review. Your name and private mobile number will not be published.</p>
+            <form id="business-submission-form" style="display:grid; gap:14px; max-width:760px;">
+                <div>
+                    <label for="business-submitter-name" style="display:block;font-weight:600;margin-bottom:6px;">Your name *</label>
+                    <input id="business-submitter-name" name="submitter_name" type="text" maxlength="80" autocomplete="name" required placeholder="Enter your name" style="width:100%;padding:12px;border:1px solid #cbd5e1;border-radius:9px;">
+                </div>
+                <div>
+                    <label for="business-mobile-number" style="display:block;font-weight:600;margin-bottom:6px;">Private mobile number *</label>
+                    <input id="business-mobile-number" name="mobile_number" type="tel" maxlength="25" autocomplete="tel" required placeholder="03XXXXXXXXX or +923XXXXXXXXX" style="width:100%;padding:12px;border:1px solid #cbd5e1;border-radius:9px;">
+                    <small style="color:#64748b;">Accepted formats: 03XXXXXXXXX, +923XXXXXXXXX, or 00923XXXXXXXXX.</small>
+                </div>
+                <div>
+                    <label for="business-name-eng" style="display:block;font-weight:600;margin-bottom:6px;">Business / service name (English) *</label>
+                    <input id="business-name-eng" name="name_eng" type="text" maxlength="120" required placeholder="e.g. Bhagwal General Store" style="width:100%;padding:12px;border:1px solid #cbd5e1;border-radius:9px;">
+                </div>
+                <div>
+                    <label for="business-name-urdu" style="display:block;font-weight:600;margin-bottom:6px;">Business name (Urdu) <span style="font-weight:400;color:#64748b;">(optional)</span></label>
+                    <input id="business-name-urdu" name="name_urdu" type="text" maxlength="120" placeholder="کاروبار کا نام" dir="rtl" style="width:100%;padding:12px;border:1px solid #cbd5e1;border-radius:9px;">
+                </div>
+                <div>
+                    <label for="business-category" style="display:block;font-weight:600;margin-bottom:6px;">Category *</label>
+                    <select id="business-category" name="category" required style="width:100%;padding:12px;border:1px solid #cbd5e1;border-radius:9px;background:#fff;">
+                        <option value="">Choose a category</option>
+                        <option value="Services">Services</option>
+                        <option value="Health">Health</option>
+                        <option value="Shops">Shops</option>
+                        <option value="Education">Education</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="business-description" style="display:block;font-weight:600;margin-bottom:6px;">Description of business / service *</label>
+                    <textarea id="business-description" name="description" rows="4" maxlength="1500" required placeholder="Describe the products or services offered" style="width:100%;padding:12px;border:1px solid #cbd5e1;border-radius:9px;"></textarea>
+                </div>
+                <div>
+                    <label for="business-public-phone" style="display:block;font-weight:600;margin-bottom:6px;">Public business phone <span style="font-weight:400;color:#64748b;">(optional)</span></label>
+                    <input id="business-public-phone" name="phone" type="tel" maxlength="30" placeholder="Number customers may use to contact the business" style="width:100%;padding:12px;border:1px solid #cbd5e1;border-radius:9px;">
+                </div>
+                <div>
+                    <label for="business-location" style="display:block;font-weight:600;margin-bottom:6px;">Business location <span style="font-weight:400;color:#64748b;">(optional)</span></label>
+                    <input id="business-location" name="location" type="text" maxlength="160" placeholder="e.g. Main bazaar, Bhagwal" style="width:100%;padding:12px;border:1px solid #cbd5e1;border-radius:9px;">
+                </div>
+                <div>
+                    <label for="business-tags" style="display:block;font-weight:600;margin-bottom:6px;">Search keywords <span style="font-weight:400;color:#64748b;">(optional, comma separated)</span></label>
+                    <input id="business-tags" name="tags" type="text" maxlength="300" placeholder="e.g. grocery, general store, delivery" style="width:100%;padding:12px;border:1px solid #cbd5e1;border-radius:9px;">
+                </div>
+                <div aria-label="Security verification">
+                    <div class="cf-turnstile" data-sitekey="0x4AAAAAAGQdsqNUKD1CiIo3" data-theme="light" data-action="business_submit"></div>
+                </div>
+                <div style="position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden;" aria-hidden="true">
+                    <label for="business-website">Leave this field empty</label>
+                    <input id="business-website" name="website" type="text" tabindex="-1" autocomplete="off">
+                </div>
+                <button id="business-submit-button" type="submit" style="width:fit-content;border:0;border-radius:9px;background:#059669;color:#fff;font-weight:700;padding:12px 20px;cursor:pointer;">Submit for Admin Review</button>
+                <p id="business-form-status" role="status" aria-live="polite" style="margin:0;"></p>
+            </form>
+        </section>
+
         <!-- Zero State Error Message -->
         <div id="noResults" class="hidden text-center py-12">
             <p class="text-xl text-gray-500 urdu-text">کوئی ریکارڈ نہیں ملا۔</p>
@@ -70,7 +130,7 @@
     <footer class="bg-gray-900 text-gray-400 text-center py-12 mt-16 px-4">
         <p class="text-white text-lg font-semibold mb-2 urdu-text">کیا آپ کا بھگوال میں کوئی کاروبار ہے؟</p>
         <p class="mb-6">Get your shop or service listed here for free. Reach thousands of locals and overseas community members.</p>
-        <a href="mailto:your-email@example.com" class="inline-block bg-emerald-600 hover:bg-emerald-500 text-white font-medium px-6 py-3 rounded-xl transition-all shadow-md">List Your Business Now</a>
+        <a href="#business-submission-form" class="inline-block bg-emerald-600 hover:bg-emerald-500 text-white font-medium px-6 py-3 rounded-xl transition-all shadow-md">List Your Business Now</a>
     </footer>
 
     <!-- Core Business Data Logic Stack -->
@@ -164,5 +224,8 @@
             document.getElementById('directoryGrid').innerHTML = '<p style="grid-column:1/-1;text-align:center;color:#64748b;">Directory is temporarily unavailable.</p>';
         });
     </script>
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+    <script type="module" src="./business-form.js"></script>
+
 </body>
 </html>
