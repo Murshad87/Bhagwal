@@ -8,11 +8,11 @@ const status = document.getElementById("business-form-status");
 const button = document.getElementById("business-submit-button");
 
 function normalizePakistanMobile(value) {
-  const compact = String(value || "").replace(/[\\s()-]/g, "");
+  const compact = String(value || "").replace(/[\s()-]/g, "");
 
-  if (/^03\\d{9}$/.test(compact)) return "0092" + compact.slice(1);
-  if (/^\\+923\\d{9}$/.test(compact)) return "0092" + compact.slice(1);
-  if (/^00923\\d{9}$/.test(compact)) return compact;
+  if (/^03\d{9}$/.test(compact)) return "0092" + compact.slice(1);
+  if (/^\+923\d{9}$/.test(compact)) return "0092" + compact.slice(1);
+  if (/^00923\d{9}$/.test(compact)) return compact;
 
   return null;
 }
