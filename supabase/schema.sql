@@ -137,3 +137,17 @@ create policy "Admins delete gallery images"
   on storage.objects for delete
   to authenticated
   using (bucket_id = 'gallery' and public.is_admin());
+-- Table permissions
+grant select on public.notices to anon, authenticated;
+grant select on public.businesses to anon, authenticated;
+grant select on public.gallery_photos to anon, authenticated;
+
+grant insert, update, delete
+on public.notices, public.businesses, public.gallery_photos
+to authenticated;
+
+grant select on public.admin_profiles to authenticated;
+
+-- Identity sequence permissions
+grant usage, select on all sequences in schema public
+to authenticated;
