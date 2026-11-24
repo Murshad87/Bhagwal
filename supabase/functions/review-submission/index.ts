@@ -25,7 +25,7 @@ Deno.serve(async (req) => {
     if (!token) return json({ error: "Sign-in required." }, 401);
 
     const url = Deno.env.get("SUPABASE_URL");
-    const serviceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
+    const serviceKey = Deno.env.get("BHAGWAL_SERVICE_ROLE_KEY") || Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
     if (!url || !serviceKey) return json({ error: "Server configuration is incomplete." }, 500);
 
     const admin = createClient(url, serviceKey, {
