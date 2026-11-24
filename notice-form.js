@@ -7,6 +7,24 @@ const form = document.getElementById("notice-submission-form");
 const status = document.getElementById("notice-form-status");
 const button = document.getElementById("notice-submit-button");
 
+function normalizePakistanMobile(value) {
+  const compact = String(value || "").replace(/[\\s()-]/g, "");
+
+  if (/^03\\d{9}$/.test(compact)) {
+    return "0092" + compact.slice(1);
+  }
+
+  if (/^\\+923\\d{9}$/.test(compact)) {
+    return "0092" + compact.slice(1);
+  }
+
+  if (/^00923\\d{9}$/.test(compact)) {
+    return compact;
+  }
+
+  return null;
+}
+
 if (form && status && button) {
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
@@ -26,9 +44,18 @@ if (form && status && button) {
     const website = String(data.get("website") || "");
     if (website.trim()) return;
 
+    const mobileInput = String(data.get("mobile_number") || "").trim();
+    const normalizedMobile = normalizePakistanMobile(mobileInput);
+
+    if (!normalizedMobile) {
+      status.textContent = "Enter a valid Pakistani mobile number: 03XXXXXXXXX or +923XXXXXXXXX.";
+      status.style.color = "#b42318";
+      return;
+    }
+
     const payload = {
       submitter_name: String(data.get("submitter_name") || "").trim(),
-      mobile_number: String(data.get("mobile_number") || "").trim(),
+      mobile_number: normalizedMobile,
       category: String(data.get("category") || "").trim(),
       title: String(data.get("title") || "").trim(),
       description: String(data.get("description") || "").trim(),
