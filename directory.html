@@ -75,47 +75,22 @@
 
     <!-- Core Business Data Logic Stack -->
     <script>
-        // Sample directory dataset structured for instant loading
-        const businesses = [
-            {
-                nameUrdu: "",
-                nameEng: "",
-                category: "Services",
-                tags: ["electrician", "plumber", "bijli", "الیکٹریشن"],
-                phone: "",
-                location: ", Bhagwal",
-                status: "Active"
-            },
-            {
-                nameUrdu: "",
-                nameEng: "",
-                category: "Education",
-                tags: ["school", "academy", "tuition", "اسکول"],
-                phone: "",
-                location: " Bhagwal",
-                status: "Active"
-            },
-            {
-                nameUrdu: "",
-                nameEng: "",
-                category: "Health",
-                tags: ["pharmacy", "doctor", "medicine", "کلینک", "دوا"],
-                phone: "",
-                location: ", Bhagwal",
-                status: "Active"
-            },
-            {
-                nameUrdu: "",
-                nameEng: "",
-                category: "Shops",
-                tags: ["grocery", "shop", "karyana", "دکان"],
-                phone: "+",
-                location: " Bhagwal, Pakistan",
-                status: "Active"
-            }
-        ];
-
+        let businesses = [];
         let activeCategory = 'all';
+
+        async function loadBusinesses() {
+            const response = await fetch('/api/directory');
+            if (!response.ok) throw new Error('Could not load directory');
+            businesses = (await response.json()).map(biz => ({
+                nameUrdu: biz.name_urdu || '',
+                nameEng: biz.name_eng || '',
+                category: biz.category || 'Services',
+                tags: biz.tags || [],
+                phone: biz.phone || '',
+                location: biz.location || 'Bhagwal'
+            }));
+            renderDirectory();
+        }
 
         // Render functions to draw cards into layout view
         function renderDirectory() {
@@ -184,8 +159,10 @@
         // Live input key handler configuration
         document.getElementById('searchInput').addEventListener('input', renderDirectory);
 
-        // Bootstrap data render on mount
-        renderDirectory();
+        // Bootstrap database-backed directory
+        loadBusinesses().catch(() => {
+            document.getElementById('directoryGrid').innerHTML = '<p style="grid-column:1/-1;text-align:center;color:#64748b;">Directory is temporarily unavailable.</p>';
+        });
     </script>
 </body>
 </html>

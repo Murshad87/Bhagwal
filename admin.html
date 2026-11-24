@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bhagwal Admin</title>
+  <style>
+    :root { color-scheme: light; font-family: Arial, sans-serif; }
+    body { margin: 0; background: #f4f6f5; color: #1f2937; }
+    main { max-width: 980px; margin: 32px auto; padding: 0 16px; }
+    .panel { background: #fff; border: 1px solid #dfe6e2; border-radius: 8px; padding: 20px; margin-bottom: 18px; }
+    form { display: grid; gap: 12px; }
+    input, textarea, select, button { font: inherit; }
+    input, textarea, select { width: 100%; box-sizing: border-box; padding: 10px; border: 1px solid #b8c3bd; border-radius: 6px; }
+    textarea { min-height: 90px; }
+    button { width: fit-content; border: 0; border-radius: 6px; padding: 10px 16px; background: #176b52; color: #fff; cursor: pointer; }
+    button.secondary { background: #59645f; }
+    .hidden { display: none; }
+    #status { min-height: 24px; color: #59645f; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Bhagwal Administration</h1>
+    <p id="status">Checking admin session...</p>
+
+    <section id="login" class="panel hidden">
+      <h2>Admin login</h2>
+      <form id="loginForm">
+        <input id="email" type="email" placeholder="Email" autocomplete="username" required>
+        <input id="password" type="password" placeholder="Password" autocomplete="current-password" required>
+        <button type="submit">Sign in</button>
+      </form>
+    </section>
+
+    <section id="dashboard" class="hidden">
+      <div class="panel">
+        <h2>New announcement</h2>
+        <form id="noticeForm">
+          <input name="title" placeholder="Title" required>
+          <textarea name="description" placeholder="Announcement" required></textarea>
+          <input name="category" placeholder="Category">
+          <input name="author_name" placeholder="Author">
+          <button type="submit">Publish notice</button>
+        </form>
+      </div>
+
+      <div class="panel">
+        <h2>Business directory listing</h2>
+        <form id="businessForm">
+          <input name="name_eng" placeholder="Business name" required>
+          <input name="name_urdu" placeholder="نام اردو">
+          <select name="category" required>
+            <option value="Services">Services</option>
+            <option value="Health">Health</option>
+            <option value="Shops">Shops</option>
+            <option value="Education">Education</option>
+          </select>
+          <input name="phone" placeholder="Phone">
+          <input name="location" placeholder="Location">
+          <input name="tags" placeholder="Tags, comma separated">
+          <button type="submit">Publish listing</button>
+        </form>
+      </div>
+
+      <div class="panel">
+        <h2>Gallery photo</h2>
+        <form id="photoForm">
+          <input name="title" placeholder="Photo title" required>
+          <textarea name="description" placeholder="Description"></textarea>
+          <input name="photo" type="file" accept="image/jpeg,image/png,image/webp" required>
+          <button type="submit">Upload photo</button>
+        </form>
+      </div>
+
+      <button id="logout" class="secondary" type="button">Sign out</button>
+    </section>
+  </main>
+
+  <script type="module">
+    import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+    import { SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY } from './supabase-config.js';
+
+    const supabase = createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
+    const status = document.querySelector('#status');
+    const login = document.querySelector('#login');
+    const dashboard = document.querySelector('#dashboard');
+
+    async function requireAdmin() {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) {
+        login.classList.remove('hidden');
+        dashboard.classList.add('hidden');
+        status.textContent = 'Sign in with an authorized admin account.';
+        return false;
+      }
+
+      const { data: profile, error } = await supabase
+        .from('admin_profiles')
+        .select('role')
+        .eq('user_id', session.user.id)
+        .eq('role', 'admin')
+        .maybeSingle();
+
+      if (error || !profile) {
+        await supabase.auth.signOut();
+        login.classList.remove('hidden');
+        dashboard.classList.add('hidden');
+        status.textContent = 'This account is not authorized for administration.';
+        return false;
+      }
+
+      login.classList.add('hidden');
+      dashboard.classList.remove('hidden');
+      status.textContent = `Signed in as ${session.user.email}`;
+      return true;
+    }
+
+    document.querySelector('#loginForm').addEventListener('submit', async event => {
+      event.preventDefault();
+      status.textContent = 'Signing in...';
+      const email = document.querySelector('#email').value.trim();
+      const password = document.querySelector('#password').value;
+      const { error } = await supabase.auth.signInWithPassword({ email, password });
+      if (error) status.textContent = error.message;
+      else await requireAdmin();
+    });
+
+    document.querySelector('#noticeForm').addEventListener('submit', async event => {
+      event.preventDefault();
+      const form = new FormData(event.currentTarget);
+      const record = Object.fromEntries(form.entries());
+      record.status = 'approved';
+      const { error } = await supabase.from('notices').insert(record);
+      status.textContent = error ? error.message : 'Notice published.';
+      if (!error) event.currentTarget.reset();
+    });
+
+    document.querySelector('#businessForm').addEventListener('submit', async event => {
+      event.preventDefault();
+      const form = new FormData(event.currentTarget);
+      const record = Object.fromEntries(form.entries());
+      record.tags = record.tags.split(',').map(tag => tag.trim()).filter(Boolean);
+      record.is_active = true;
+      const { error } = await supabase.from('businesses').insert(record);
+      status.textContent = error ? error.message : 'Business listing published.';
+      if (!error) event.currentTarget.reset();
+    });
+
+    document.querySelector('#photoForm').addEventListener('submit', async event => {
+      event.preventDefault();
+      const form = new FormData(event.currentTarget);
+      const file = form.get('photo');
+      const safeName = file.name.replace(/[^a-zA-Z0-9.-]/g, '-');
+      const path = `${crypto.randomUUID()}-${safeName}`;
+      const { error: uploadError } = await supabase.storage
+        .from('gallery')
+        .upload(path, file, { contentType: file.type, upsert: false });
+
+      if (uploadError) {
+        status.textContent = uploadError.message;
+        return;
+      }
+
+      const { data: publicUrl } = supabase.storage.from('gallery').getPublicUrl(path);
+      const { error: insertError } = await supabase.from('gallery_photos').insert({
+        title: form.get('title'),
+        description: form.get('description'),
+        image_url: publicUrl.publicUrl,
+        is_published: true
+      });
+
+      status.textContent = insertError ? insertError.message : 'Photo published.';
+      if (!insertError) event.currentTarget.reset();
+    });
+
+    document.querySelector('#logout').addEventListener('click', async () => {
+      await supabase.auth.signOut();
+      await requireAdmin();
+    });
+
+    await requireAdmin();
+  </script>
+</body>
+</html>

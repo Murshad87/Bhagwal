@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/Murshad87/Bhagwal#readme",
   "dependencies": {
+    "@supabase/supabase-js": "^2.119.2",
     "@vercel/analytics": "^1.4.1"
   }
 }
