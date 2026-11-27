@@ -1,4 +1,5 @@
 import { createClient } from "@supabase/supabase-js";
+import { BHAGWAL_KNOWLEDGE } from "../ai-knowledge.js";
 
 const DEFAULT_MODEL = "@cf/google/gemma-4-26b-a4b-it";
 const MAX_MESSAGE_LENGTH = 1200;
@@ -154,10 +155,15 @@ export default async function handler(req, res) {
         content: item.content.trim().slice(0, MAX_MESSAGE_LENGTH),
       }));
 
-    const referenceData = await loadBhagwalReferenceData();
-    const systemPrompt = referenceData
-      ? `${BASE_SYSTEM_PROMPT}\n\nVerified live website reference data (may be incomplete):\n${referenceData}`
-      : `${BASE_SYSTEM_PROMPT}\n\nNo live directory or notice data is currently available. Do not invent any.`;
+    const localKnowledge = BHAGWAL_KNOWLEDGE.map((item) =>
+      `Category: ${item.category}\nName: ${item.title}\nAlso known as: ${item.names.join(", ")}\nDetails: ${item.details}`
+    ).join("\n\n");
+    const liveReferenceData = await loadBhagwalReferenceData();
+    const referenceSections = [
+      `Bhagwal local knowledge reference (owner-supplied; some details may need official confirmation):\n${localKnowledge}`,
+      liveReferenceData ? `Live website notices and business listings (may be incomplete):\n${liveReferenceData}` : "",
+    ].filter(Boolean);
+    const systemPrompt = `${BASE_SYSTEM_PROMPT}\n\n${referenceSections.join("\n\n")}`;
 
     const model = process.env.CLOUDFLARE_AI_MODEL || DEFAULT_MODEL;
     const endpoint = `https://api.cloudflare.com/client/v4/accounts/${encodeURIComponent(accountId)}/ai/v1/chat/completions`;
