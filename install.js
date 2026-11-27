@@ -1,4 +1,7 @@
 (() => {
+  if (window.__bhagwalInstallScriptLoaded) return;
+  window.__bhagwalInstallScriptLoaded = true;
+
   // Replace this with the Google Analytics 4 Measurement ID (for example: G-XXXXXXXXXX).
   // Analytics stays disabled until a real ID is configured.
   const GA_MEASUREMENT_ID = "G-XXXXXXXXXX";
