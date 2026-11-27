@@ -1,4 +1,4 @@
-const CACHE_NAME = "bhagwal-shell-v2";
+const CACHE_NAME = "bhagwal-shell-v3";
 const BASE_URL = new URL("./", self.registration.scope);
 const INSTALL_SCRIPT = new URL("install.js", BASE_URL).href;
 

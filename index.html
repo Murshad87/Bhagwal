@@ -12,7 +12,8 @@
   </script>
   <meta name="google-site-verification" content=" googlebf8902e01c2ffc10.html" />
 <meta name="msvalidate.01" content="8B5859A2AAD8099E7133EF2F70BCEC07" />
-
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1728991947474815"
+     crossorigin="anonymous"></script>
   <link rel="me" href="https://mastodon.social/@bhagwalkharian" />
   <link rel="me" href="https://bsky.app/profile/bhagwal.vercel.app" />
 
@@ -194,15 +195,10 @@
     html { scroll-behavior: smooth; }
 
     body {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.55)), 
-                    url('1000010869.jpg'); /* Just use the filename directly! */
-  background-size: cover;
-  background-position: center center;
-  background-attachment: fixed;
-  background-repeat: no-repeat;
+  background: var(--bg);
   margin: 0;
   font-family: 'Roboto', sans-serif;
-  color: #ffffff; 
+  color: var(--text);
   line-height: 1.7;
 }
 
@@ -297,6 +293,45 @@
     li {
       margin-bottom: 8px;
       color: var(--text);
+    }
+
+    .village-hero {
+      position: relative;
+      margin: 0 0 22px;
+      min-height: 240px;
+      overflow: hidden;
+      border-radius: 18px;
+      background: #1e5c5f;
+      box-shadow: var(--shadow);
+    }
+
+    .village-hero img {
+      display: block;
+      width: 100%;
+      height: clamp(240px, 42vw, 430px);
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .village-hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, rgba(0, 0, 0, 0.52), rgba(0, 0, 0, 0.08));
+      pointer-events: none;
+    }
+
+    .village-hero figcaption {
+      position: absolute;
+      z-index: 1;
+      left: clamp(18px, 4vw, 38px);
+      right: 18px;
+      bottom: clamp(18px, 4vw, 38px);
+      color: #fff;
+      font-size: clamp(1.35rem, 4vw, 2.3rem);
+      font-weight: 700;
+      line-height: 1.2;
+      text-shadow: 0 2px 12px rgba(0, 0, 0, 0.45);
     }
 
     .hero-grid {
@@ -611,8 +646,18 @@
   </header>
 
   <main>
-    
-    <section class="dashboard" id="dashboard">
+    <figure class="village-hero">
+      <img
+        src="/images/bhagwal-aerial-view.avif"
+        alt="Aerial view of Bhagwal village"
+        width="1600"
+        height="700"
+        loading="eager"
+        fetchpriority="high"
+      />
+      <figcaption>Bhagwal – Our Village, Our Heritage.</figcaption>
+    </figure>
+<section class="dashboard" id="dashboard">
       <div class="dashboard-intro">
         <h2>Welcome to Bhagwal</h2>
         <p>Explore our village, discover local places, and stay connected with the Bhagwal community.</p>
@@ -670,7 +715,51 @@
 <section id="announcements" style="max-width: 900px; margin: 30px auto; padding: 22px; background: #ffffff; border: 2px solid #0ea5e9; border-radius: 14px; box-shadow: 0 6px 20px rgba(0,0,0,0.06); font-family: system-ui, sans-serif;">
   <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; border-bottom: 1px solid #e2e8f0; padding-bottom: 12px; margin-bottom: 16px;">
     <h2 style="margin: 0; font-size: 20px; color: #0f172a;">📢 Announcements & Upcoming Events / اعلانات</h2>
-    <a href="mailto:info@bhagwal.pk?subject=New%20Bhagwal%20Announcement" style="background: #0284c7; color: #fff; padding: 7px 14px; border-radius: 8px; text-decoration: none; font-size: 13px; font-weight: 600;">+ Submit Notice</a>
+    <a href="#notice-submission-form" style="background: #0284c7; color: #fff; padding: 7px 14px; border-radius: 8px; text-decoration: none; font-size: 13px; font-weight: 600;">+ Submit Notice</a>
+  </div>
+
+  <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:10px; padding:16px; margin-bottom:18px;">
+    <h3 style="margin:0 0 6px; color:#0f172a;">Share a community notice</h3>
+    <p style="margin:0 0 14px; color:#475569; font-size:13px;">Submit a notice, event or community update for admin review. Your name and mobile number will remain private.</p>
+    <form id="notice-submission-form" class="contact-form" style="margin-top:0; max-width:100%;">
+      <div class="form-row">
+        <label for="notice-submitter-name">Your name <span class="required-mark">*</span></label>
+        <input id="notice-submitter-name" name="submitter_name" type="text" maxlength="80" autocomplete="name" required placeholder="Enter your name" />
+      </div>
+      <div class="form-row">
+        <label for="notice-mobile-number">Mobile number <span class="required-mark">*</span></label>
+        <input id="notice-mobile-number" name="mobile_number" type="tel" maxlength="25" autocomplete="tel" required placeholder="e.g. +92 3XX XXXXXXX" />
+      </div>
+      <div class="form-row">
+        <label for="notice-category">Notice category <span class="required-mark">*</span></label>
+        <select id="notice-category" name="category" required style="width:100%; border:1px solid #dfe6e8; border-radius:10px; padding:12px 14px; font:inherit; color:#1f2a2d; background:#fff;">
+          <option value="Notice">General Notice</option>
+          <option value="Community">Community</option>
+          <option value="Event">Event</option>
+          <option value="Education">Education</option>
+          <option value="Health">Health</option>
+          <option value="Public Service">Public Service</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <label for="notice-title">Notice title <span class="required-mark">*</span></label>
+        <input id="notice-title" name="title" type="text" maxlength="140" required placeholder="Write a short title" />
+      </div>
+      <div class="form-row">
+        <label for="notice-description">Description <span class="required-mark">*</span></label>
+        <textarea id="notice-description" name="description" maxlength="3000" required placeholder="Share the details of your notice or event"></textarea>
+      </div>
+      <div class="form-row" aria-label="Security verification">
+        <div class="cf-turnstile" data-sitekey="0x4AAAAAAGQdsqNUKD1CiIo3" data-theme="light" data-action="notice_submit"></div>
+      </div>
+      <div style="position:absolute; left:-10000px; width:1px; height:1px; overflow:hidden;" aria-hidden="true">
+        <label for="notice-website">Leave this field empty</label>
+        <input id="notice-website" name="website" type="text" tabindex="-1" autocomplete="off" />
+      </div>
+      <button id="notice-submit-button" class="submit-btn" type="submit">Submit for Admin Review</button>
+      <p id="notice-form-status" role="status" aria-live="polite" style="margin:0; color:#475569; font-size:14px;"></p>
+    </form>
   </div>
 
   <div id="announcements-list" style="display: grid; gap: 12px;">
@@ -722,6 +811,8 @@
   }
   loadAnnouncements();
 </script>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+<script type="module" src="./notice-form.js"></script>
 
     <section id="about">
       <h2>About Bhagwal</h2>
@@ -1268,4 +1359,6 @@ loadMastodonFeed();
   </p>
 </footer>
 
-
+  <script src="/install.js" defer></script>
+</body>
+</html>
