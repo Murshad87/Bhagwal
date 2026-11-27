@@ -194,15 +194,10 @@
     html { scroll-behavior: smooth; }
 
     body {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.55)), 
-                    url('1000010869.jpg'); /* Just use the filename directly! */
-  background-size: cover;
-  background-position: center center;
-  background-attachment: fixed;
-  background-repeat: no-repeat;
+  background: var(--bg);
   margin: 0;
   font-family: 'Roboto', sans-serif;
-  color: #ffffff; 
+  color: var(--text);
   line-height: 1.7;
 }
 
@@ -297,6 +292,45 @@
     li {
       margin-bottom: 8px;
       color: var(--text);
+    }
+
+    .village-hero {
+      position: relative;
+      margin: 0 0 22px;
+      min-height: 240px;
+      overflow: hidden;
+      border-radius: 18px;
+      background: #1e5c5f;
+      box-shadow: var(--shadow);
+    }
+
+    .village-hero img {
+      display: block;
+      width: 100%;
+      height: clamp(240px, 42vw, 430px);
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .village-hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, rgba(0, 0, 0, 0.52), rgba(0, 0, 0, 0.08));
+      pointer-events: none;
+    }
+
+    .village-hero figcaption {
+      position: absolute;
+      z-index: 1;
+      left: clamp(18px, 4vw, 38px);
+      right: 18px;
+      bottom: clamp(18px, 4vw, 38px);
+      color: #fff;
+      font-size: clamp(1.35rem, 4vw, 2.3rem);
+      font-weight: 700;
+      line-height: 1.2;
+      text-shadow: 0 2px 12px rgba(0, 0, 0, 0.45);
     }
 
     .hero-grid {
@@ -611,8 +645,18 @@
   </header>
 
   <main>
-    
-    <section class="dashboard" id="dashboard">
+    <figure class="village-hero">
+      <img
+        src="/images/bhagwal-aerial-view.avif"
+        alt="Aerial view of Bhagwal village"
+        width="1600"
+        height="700"
+        loading="eager"
+        fetchpriority="high"
+      />
+      <figcaption>Bhagwal – Our Village, Our Heritage.</figcaption>
+    </figure>
+<section class="dashboard" id="dashboard">
       <div class="dashboard-intro">
         <h2>Welcome to Bhagwal</h2>
         <p>Explore our village, discover local places, and stay connected with the Bhagwal community.</p>
