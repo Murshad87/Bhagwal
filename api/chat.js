@@ -193,8 +193,12 @@ export default async function handler(req, res) {
       });
     }
 
-    const answer = result?.result?.response ||
-      result?.choices?.[0]?.message?.content;
+    // Workers AI may return either the legacy { result: { response } } shape
+    // or the OpenAI-compatible { result: { choices: [...] } } envelope.
+    const answer =
+      result?.result?.choices?.[0]?.message?.content ??
+      result?.choices?.[0]?.message?.content ??
+      result?.result?.response;
 
     if (typeof answer !== "string" || !answer.trim()) {
       return sendJson(res, 502, { error: "The AI service returned an empty response. Please try again." });
