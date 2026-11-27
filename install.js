@@ -17,6 +17,17 @@
     document.head.appendChild(analyticsScript);
   }
 
+  // Load the shared Bhagwal AI chat widget on every page where install.js runs.
+  function loadBhagwalAssistant() {
+    if (document.getElementById("bhagwal-ai-widget-script")) return;
+    const script = document.createElement("script");
+    script.id = "bhagwal-ai-widget-script";
+    script.src = new URL("chat-widget.js", document.currentScript?.src || window.location.href).href;
+    script.defer = true;
+    document.head.appendChild(script);
+  }
+
+  loadBhagwalAssistant();
   function track(eventName, parameters = {}) {
     if (analyticsReady && typeof window.gtag === "function") {
       window.gtag("event", eventName, parameters);
